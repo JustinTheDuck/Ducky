@@ -12,6 +12,7 @@ public class CharacterLoader {
 
 
     public static int getCharacterSpeed(String Character) {
+        xSpeed = 1;
         switch(Character){
             case "Duck", "Rice", "Zombie":
                 xSpeed = 4;
@@ -33,6 +34,7 @@ public class CharacterLoader {
     }
 
     public static int getCharacterMaxHealth(String Character) {
+        maxHealth = 1000;
         switch(Character){
             case "Duck", "Rice", "Zombie":
                 maxHealth = 100;
@@ -71,9 +73,12 @@ public class CharacterLoader {
 
     public static BufferedImage getImage(String filePath) {
         try {
-            image = ImageIO.read(Objects.requireNonNull(CharacterLoader.class.getClassLoader().getResourceAsStream("player/" + filePath + ".png")));
-        } catch (IOException e) {
-            e.printStackTrace();
+            image = ImageIO.read((CharacterLoader.class.getClassLoader().getResourceAsStream("player/" + filePath + ".png")));
+        } catch (Exception e) {
+            try {image = ImageIO.read(Objects.requireNonNull(CharacterLoader.class.getClassLoader().getResourceAsStream("menu/error/Missing_Tile.png")));} catch (
+                    IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         return image;
     }
