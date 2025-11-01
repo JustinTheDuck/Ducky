@@ -29,7 +29,7 @@ public class Player extends Entity{
 
     public void setDefaultValues(){
         //Get default starting values for character
-        Character = "guy";
+        Character = "Zombie";
         user = "player";
         x = 100;
         y = 100;
@@ -63,7 +63,6 @@ public class Player extends Entity{
 
     public void update(){
         gp.cChecker.checkTile(this);
-
         //change y pos based on ySpeed
         if (!touchingY && fall <= 9) {
             ySpeed -= gravity;

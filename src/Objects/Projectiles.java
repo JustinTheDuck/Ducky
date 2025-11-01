@@ -43,7 +43,7 @@ public class Projectiles extends Entity {
     public void getData(String type) {
         switch(type) {
             case "fireball":
-                name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 5; g = 0; break;
+                name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 20; g = 0; break;
             case "slash":
                 name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 10; g = 0;
                 break;
@@ -114,14 +114,14 @@ public class Projectiles extends Entity {
                 if(attacks.get(i + 6) == "player") {
                     updatePlayer2Hitbox();
                     if(xLeftPlayer2Hitbox <= (int)attacks.get(i + 1) + 24 && xRightPlayer2Hitbox >= (int)attacks.get(i + 1) + 24 && yTopPlayer2Hitbox <= (int)attacks.get(i + 2) + 24 && yBottomPlayer2Hitbox >= (int)attacks.get(i + 2) + 24 && !(boolean)attacks.get(i + 9)) {
-                        gp.player2.health -= (int) attacks.get(i + 7);
+                        gp.player2.health -= 10 * (int) attacks.get(i + 7);
                         attacks.set(i + 9, true);
                     }
                 }
                 if(attacks.get(i + 6) == "player2") {
                     updatePlayerHitbox();
                     if(xLeftPlayerHitbox <= (int)attacks.get(i + 1) && xRightPlayerHitbox >= (int)attacks.get(i + 1) && yTopPlayerHitbox <= (int)attacks.get(i + 2) && yBottomPlayerHitbox >= (int)attacks.get(i + 2) && !(boolean)attacks.get(i + 9)) {
-                        gp.player.health -= (int) attacks.get(i + 7);
+                        gp.player.health -= 10 * (int) attacks.get(i + 7);
                         attacks.set(i + 9, true);
                     }
                 }

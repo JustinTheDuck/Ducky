@@ -35,7 +35,7 @@ public class ZombieUltimate {
     Rectangle FartHitbox = new Rectangle(0, 0, 3 * 48, 3 * 48);
     int[] fartHitbox = new int[4];
     int[] fartHitbox2 = new int[4];
-    final int DAMAGE = 1;
+    final int DAMAGE = 5;
 
     //Ultimate
     int bottomRow, leftColumn, rightColumn;
@@ -44,15 +44,12 @@ public class ZombieUltimate {
     //X and Y Locations of the apple
     int ultX, ultY;
     int ultX2, ultY2;
-    //YSpeed (not gravity affected cause I'm lazy)
+    //YSpeed (not gravity affected because I'm lazy)
     int ySpeed = 6;
     //Tiles the apple is colliding with
     int tileNum1, tileNum2;
     //How much poison affects the player
     int PoisonDAMAGE = 0, PoisonDAMAGE2 = 0;
-    //Frames before player takes poison damage
-    int PoisonCounter, PoisonCounter2;
-    final int DELAY = 10;
 
     public ZombieUltimate(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -99,24 +96,23 @@ public class ZombieUltimate {
 
     public void update() {
         updateHitbox();
-        PoisonCounter++; PoisonCounter2++;
         //Player 1 Punch
         if(Ultimate.playerInfo[0] && gp.player.Character.equals("Zombie")) {
             basicCounter++;
-            if(!basicHit && Ultimate.player2Hitbox[0] <= basicHitbox[0] && Ultimate.player2Hitbox[1] >= basicHitbox[1] && Ultimate.player2Hitbox[2] <= basicHitbox[2] && Ultimate.player2Hitbox[3] >= basicHitbox[3]) {gp.player2.health -= 5; basicHit = true;}
+            if(!basicHit && Ultimate.player2Hitbox[0] <= basicHitbox[0] && Ultimate.player2Hitbox[1] >= basicHitbox[1] && Ultimate.player2Hitbox[2] <= basicHitbox[2] && Ultimate.player2Hitbox[3] >= basicHitbox[3]) {gp.player2.health -= 50; basicHit = true;}
             //When to kill Punch
             if (life <= basicCounter) {gp.player.basicCOUNTER = 0; Ultimate.playerInfo[0] = false; basicCounter = 0; basicHit = false;}
         }
         //Player 2 Punch
         if(Ultimate.player2Info[0] && gp.player2.Character.equals("Zombie")) {
             basicCounter2++;
-            if(!basicHit2 && Ultimate.playerHitbox[0] <= basicHitbox2[0] && Ultimate.playerHitbox[1] >= basicHitbox2[1] && Ultimate.playerHitbox[2] <= basicHitbox2[2] && Ultimate.playerHitbox[3] >= basicHitbox2[3]) {gp.player.health -= 5; basicHit2 = true;}
+            if(!basicHit2 && Ultimate.playerHitbox[0] <= basicHitbox2[0] && Ultimate.playerHitbox[1] >= basicHitbox2[1] && Ultimate.playerHitbox[2] <= basicHitbox2[2] && Ultimate.playerHitbox[3] >= basicHitbox2[3]) {gp.player.health -= 50; basicHit2 = true;}
             //When to kill Punch
             if (life <= basicCounter2) {gp.player2.basicCOUNTER = 0; Ultimate.player2Info[0] = false; basicCounter2 = 0; basicHit2 = false;}
         }
         //Check it players collide with the fart hitbox
-        if(fartHitbox[0] <= Ultimate.player2Hitbox[0] && fartHitbox[1] >= Ultimate.player2Hitbox[1] && fartHitbox[2] <= Ultimate.player2Hitbox[2] && fartHitbox[3] >= Ultimate.player2Hitbox[3]) {gp.player2.health -= DAMAGE;}
-        if(fartHitbox2[0] <= Ultimate.playerHitbox[0] && fartHitbox2[1] >= Ultimate.playerHitbox[1] && fartHitbox2[2] <= Ultimate.playerHitbox[2] && fartHitbox2[3] >= Ultimate.playerHitbox[3]) {gp.player.health -= DAMAGE;}
+        if(Ultimate.player2Hitbox[1] >= fartHitbox[0] && Ultimate.player2Hitbox[0] <= fartHitbox[1] && Ultimate.player2Hitbox[3] >= fartHitbox[2] && Ultimate.player2Hitbox[2] <= fartHitbox[3]) {gp.player2.health -= DAMAGE;}
+        if(Ultimate.playerHitbox[1] >= fartHitbox2[0] && Ultimate.playerHitbox[0] <= fartHitbox2[1] && Ultimate.playerHitbox[3] >= fartHitbox2[2] && Ultimate.playerHitbox[2] <= fartHitbox2[3]) {gp.player.health -= DAMAGE;}
         //Apple data/When to calculate damage
         if(Ultimate.playerInfo[1]) {
             ultY += ySpeed;
@@ -128,8 +124,8 @@ public class ZombieUltimate {
             tileNum1 = gp.tileM.mapTileNum[leftColumn2][bottomRow2]; tileNum2 = gp.tileM.mapTileNum[rightColumn2][bottomRow2];
             if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.player2Info[1] = false; calculateDamage("player2"); PoisonDAMAGE2++;}
         }
-        if(PoisonCounter >= DELAY) {gp.player2.health -= PoisonDAMAGE; PoisonCounter = 0;}
-        if(PoisonCounter2 >= DELAY) {gp.player.health -= PoisonDAMAGE2; PoisonCounter2 = 0;}
+        gp.player2.health -= PoisonDAMAGE;
+        gp.player.health -= PoisonDAMAGE2;
     }
 
     public void getImages() {

@@ -6,15 +6,18 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class CharacterLoader {
-    static int xSpeed, maxHealth, ultimateDELAY, basicCOOLDOWN;
+    //Default values
+    static int xSpeed = 10;
+    static int maxHealth = 1000;
+    static int ultimateDELAY = 50;
+    static int basicCOOLDOWN = -1;
     static BufferedImage[] characterImages = new BufferedImage[12];
     static BufferedImage image;
 
 
     public static int getCharacterSpeed(String Character) {
-        xSpeed = 1;
         switch(Character){
-            case "Duck", "Rice", "Zombie":
+            case "Duck", "Rice", "Zombie", "Guy":
                 xSpeed = 4;
                 break;
         }
@@ -34,10 +37,9 @@ public class CharacterLoader {
     }
 
     public static int getCharacterMaxHealth(String Character) {
-        maxHealth = 1000;
         switch(Character){
             case "Duck", "Rice", "Zombie":
-                maxHealth = 100;
+                maxHealth = 1000;
                 break;
         }
         return maxHealth;
@@ -75,7 +77,7 @@ public class CharacterLoader {
         try {
             image = ImageIO.read((CharacterLoader.class.getClassLoader().getResourceAsStream("player/" + filePath + ".png")));
         } catch (Exception e) {
-            try {image = ImageIO.read(Objects.requireNonNull(CharacterLoader.class.getClassLoader().getResourceAsStream("menu/error/Missing_Tile.png")));} catch (
+            try {image = ImageIO.read(Objects.requireNonNull(CharacterLoader.class.getClassLoader().getResourceAsStream("menu/error/Missing_Tile.png"))); System.out.println("Error: " + filePath + " not found");} catch (
                     IOException ex) {
                 throw new RuntimeException(ex);
             }
