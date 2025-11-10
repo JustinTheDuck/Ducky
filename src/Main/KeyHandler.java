@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
     public boolean upPressed, leftPressed, rightPressed, downPressed, upPressed2, leftPressed2, rightPressed2, downPressed2;
     public boolean spclPressed, spclPressed2, basicPressed, basicPressed2;
+    public boolean gameClosePressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -26,6 +27,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_N) {spclPressed2 = true;}
         if (code == KeyEvent.VK_E) {basicPressed = true;}
         if (code == KeyEvent.VK_M) {basicPressed2 = true;}
+        if (code == KeyEvent.VK_ESCAPE) {gameClosePressed = true;}
 
     }
 
@@ -44,5 +46,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_N) {spclPressed2 = false;}
         if (code == KeyEvent.VK_E) {basicPressed = false;}
         if (code == KeyEvent.VK_M) {basicPressed2 = false;}
+        if (code == KeyEvent.VK_ESCAPE) {gameClosePressed = false;}
+
     }
 }

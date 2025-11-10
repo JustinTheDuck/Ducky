@@ -99,14 +99,14 @@ public class ZombieUltimate {
         //Player 1 Punch
         if(Ultimate.playerInfo[0] && gp.player.Character.equals("Zombie")) {
             basicCounter++;
-            if(!basicHit && Ultimate.player2Hitbox[0] <= basicHitbox[0] && Ultimate.player2Hitbox[1] >= basicHitbox[1] && Ultimate.player2Hitbox[2] <= basicHitbox[2] && Ultimate.player2Hitbox[3] >= basicHitbox[3]) {gp.player2.health -= 50; basicHit = true;}
+            if(!basicHit && Ultimate.player2Hitbox[1] >= basicHitbox[0] && Ultimate.player2Hitbox[0] <= basicHitbox[1] && Ultimate.player2Hitbox[3] >= basicHitbox[2] && Ultimate.player2Hitbox[2] <= basicHitbox[3]) {gp.player2.health -= 50; basicHit = true;}
             //When to kill Punch
             if (life <= basicCounter) {gp.player.basicCOUNTER = 0; Ultimate.playerInfo[0] = false; basicCounter = 0; basicHit = false;}
         }
         //Player 2 Punch
         if(Ultimate.player2Info[0] && gp.player2.Character.equals("Zombie")) {
             basicCounter2++;
-            if(!basicHit2 && Ultimate.playerHitbox[0] <= basicHitbox2[0] && Ultimate.playerHitbox[1] >= basicHitbox2[1] && Ultimate.playerHitbox[2] <= basicHitbox2[2] && Ultimate.playerHitbox[3] >= basicHitbox2[3]) {gp.player.health -= 50; basicHit2 = true;}
+            if(!basicHit2 && Ultimate.playerHitbox[1] >= basicHitbox2[0] && Ultimate.playerHitbox[0] <= basicHitbox2[1] && Ultimate.playerHitbox[3] >= basicHitbox2[2] && Ultimate.playerHitbox[2] <= basicHitbox2[3]) {gp.player.health -= 50; basicHit2 = true;}
             //When to kill Punch
             if (life <= basicCounter2) {gp.player2.basicCOUNTER = 0; Ultimate.player2Info[0] = false; basicCounter2 = 0; basicHit2 = false;}
         }

@@ -2,8 +2,10 @@ package Main;
 
 import javax.swing.JFrame;
 public class Main {
-    public static void main(String[] args) {
-        JFrame window = new JFrame();
+
+    public static JFrame window;
+
+    public static void main(String[] args) { window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Ducky Fighters Java Edition");
@@ -16,6 +18,8 @@ public class Main {
         window.setVisible(true);
 
 
+
+        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
 }
