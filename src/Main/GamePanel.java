@@ -3,6 +3,7 @@ package Main;
 import Entities.Player;
 import Entities.Player2;
 import GUI.SpecialAttackBar;
+import GUI.UI;
 import GUI.UltimateBar;
 import Objects.Projectiles;
 import GUI.HealthBar;
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     public TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -48,6 +49,12 @@ public class GamePanel extends JPanel implements Runnable {
     public UltimateBar ultimateBar = new UltimateBar(this);
     public SpecialAttackBar specialAttackBar = new SpecialAttackBar(this);
     public Ultimate ultimate = new Ultimate(this, keyH);
+    public UI ui = new UI(this);
+
+    //GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
@@ -58,9 +65,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
+        gameState = playState;
         tempScreen = new BufferedImage(ScreenWidth, ScreenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = tempScreen.getGraphics();
-        setFullScreen();
+        //setFullScreen();
     }
 
     public void setFullScreen() {
@@ -108,13 +116,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(keyH.gameClosePressed) {closeProgram();}
-        //Update Character position
-        player.update();
-        player2.update();
-        projectiles.update();
-        healthBar.checkDead();
-        ultimate.update();
+
+        if(gameState == playState) {
+            if (keyH.gameClosePressed) {closeProgram();}
+            //Update Character position
+            player.update();
+            player2.update();
+            projectiles.update();
+            healthBar.checkDead();
+            ultimate.update();
+        }
     }
 
     public void drawToTempScreen() {
@@ -131,6 +142,8 @@ public class GamePanel extends JPanel implements Runnable {
         ultimate.drawP2((Graphics2D) g2);
         //Layer 4
         projectiles.draw((Graphics2D) g2);
+        //Layer 5
+        ui.draw((Graphics2D) g2);
     }
 
     public void drawToScreen() {

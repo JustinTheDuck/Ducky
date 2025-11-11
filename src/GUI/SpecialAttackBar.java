@@ -1,6 +1,7 @@
 package GUI;
 
 import Main.GamePanel;
+import Ultimate.GuyUltimate;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,6 +20,7 @@ public class SpecialAttackBar {
 
     final int yLocal = 2 * yLocation + ySize;
 
+    public int percent;
 
     public SpecialAttackBar(GamePanel gp) {
         this.gp = gp;
@@ -50,7 +52,7 @@ public class SpecialAttackBar {
     public void draw(Graphics2D g2){
         for(int i = 0; i < attacks.size(); i++) {
             if(i%12 == 0){
-                int percent = 100 * (int) attacks.get(i+8)/ (int) attacks.get(i+11);
+                percent = 100 * (int) attacks.get(i+8)/ (int) attacks.get(i+11);
                 if(attacks.get(i + 6) == "player"){
                     if(percent >= 75) {g2.drawImage(spclBarRight_0, xLocation, yLocal, xSize/2, ySize/2, null);}
                     if(percent < 75 && percent >= 50) {g2.drawImage(spclBarRight_1, xLocation, yLocal, xSize/2, ySize/2, null);}
@@ -65,7 +67,24 @@ public class SpecialAttackBar {
                 }
             }
         }
-        if(!gp.player.alive) {g2.drawImage(spclBarRight_4, xLocation, yLocal, xSize/2, ySize/2, null);}
-        if(!gp.player2.alive) {g2.drawImage(spclBarLeft_4, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+        if(gp.player.Character.equals("Guy")) {
+            percent = 100 * (gp.player.basicCOOLDOWN - gp.player.basicCOUNTER) / gp.player.basicCOOLDOWN;
+            if(percent >= 75) {g2.drawImage(spclBarRight_0, xLocation, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 75 && percent >= 50) {g2.drawImage(spclBarRight_1, xLocation, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 50 && percent >= 25) {g2.drawImage(spclBarRight_2, xLocation, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 25 && percent > 0) {g2.drawImage(spclBarRight_3, xLocation, yLocal, xSize/2, ySize/2, null);}
+            if(percent <= 0) {g2.drawImage(spclBarRight_4, xLocation, yLocal, xSize/2, ySize/2, null);}
+        }
+        if(gp.player2.Character.equals("Guy")) {
+            percent = 100 * (gp.player2.basicCOOLDOWN - gp.player2.basicCOUNTER) / gp.player2.basicCOOLDOWN;
+            if(percent >= 75) {g2.drawImage(spclBarLeft_0, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 75 && percent >= 50) {g2.drawImage(spclBarLeft_1, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 50 && percent >= 25) {g2.drawImage(spclBarLeft_2, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+            if(percent < 25 && percent > 0) {g2.drawImage(spclBarLeft_3, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+            if(percent <= 0 ) {g2.drawImage(spclBarLeft_3, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+
+        }
+        if(!gp.player.alive && !gp.player.Character.equals("Guy")) {g2.drawImage(spclBarRight_4, xLocation, yLocal, xSize/2, ySize/2, null);}
+        if(!gp.player2.alive && !gp.player2.Character.equals("Guy")) {g2.drawImage(spclBarLeft_4, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
     }
 }

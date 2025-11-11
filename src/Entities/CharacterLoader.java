@@ -32,6 +32,9 @@ public class CharacterLoader {
             case"Rice":
                 basicCOOLDOWN = -1;
                 break;
+            case "Guy":
+                basicCOOLDOWN = 180;
+                break;
         }
         return basicCOOLDOWN;
     }

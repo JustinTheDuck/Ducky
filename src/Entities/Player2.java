@@ -21,7 +21,7 @@ public class Player2 extends Entity {
     }
 
     public void setDefaultValues() {
-        Character = "Guy";
+        Character = "Zombie";
         user = "player2";
         y = 100;
         x = 200;

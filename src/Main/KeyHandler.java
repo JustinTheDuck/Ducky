@@ -8,6 +8,12 @@ public class KeyHandler implements KeyListener {
     public boolean spclPressed, spclPressed2, basicPressed, basicPressed2;
     public boolean gameClosePressed;
 
+    GamePanel gp;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -27,7 +33,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_N) {spclPressed2 = true;}
         if (code == KeyEvent.VK_E) {basicPressed = true;}
         if (code == KeyEvent.VK_M) {basicPressed2 = true;}
-        if (code == KeyEvent.VK_ESCAPE) {gameClosePressed = true;}
+        if (code == KeyEvent.VK_ESCAPE) {
+            if(gp.gameState == gp.playState) {gp.gameState = gp.pauseState;}
+            else if(gp.gameState == gp.pauseState) {gp.gameState = gp.playState;}
+        }
 
     }
 
