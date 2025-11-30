@@ -9,10 +9,10 @@ public class Ultimate {
     GamePanel gp;
     KeyHandler keyH;
 
-    DuckUltimate duckUltimate;
-    RiceUltimate riceUltimate;
-    ZombieUltimate zombieUltimate;
-    GuyUltimate guyUltimate;
+    public DuckUltimate duckUltimate;
+    public RiceUltimate riceUltimate;
+    public ZombieUltimate zombieUltimate;
+    public GuyUltimate guyUltimate;
 
     public static boolean[] playerInfo = new boolean[2];
     public static boolean[] player2Info = new boolean[2];
@@ -69,6 +69,7 @@ public class Ultimate {
                 break;
             case "Guy":
                 if (!playerInfo[0] && gp.player.basicCOOLDOWN <= gp.player.basicCOUNTER && keyH.basicPressed) {guyUltimate.basicAttack("player");}
+                if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.spclPressed) {guyUltimate.ultimateAttack("player");}
                 break;
         }
         switch (gp.player2.Character) {
@@ -85,7 +86,7 @@ public class Ultimate {
                 break;
             case "Guy":
                 if (!player2Info[0] && gp.player2.basicCOOLDOWN <= gp.player2.basicCOUNTER && keyH.basicPressed2) {guyUltimate.basicAttack("player2");}
-                if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.downPressed) {guyUltimate.ultimateAttack("player2");}
+                if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.spclPressed2) {guyUltimate.ultimateAttack("player2");}
                 break;
         }
         if (gp.player.Character.equals("Duck") || gp.player2.Character.equals("Duck")) {duckUltimate.update();}

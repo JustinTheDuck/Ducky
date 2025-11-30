@@ -17,7 +17,7 @@ public class RiceUltimate {
     int ultimateDecrement = 0;
     int ultimateDecrement2 = 0;
 
-    BufferedImage ultimateLeft, ultimateRight;
+    public BufferedImage ultimateLeft, ultimateRight;
     BufferedImage image;
 
     public RiceUltimate(GamePanel gp, KeyHandler keyH) {

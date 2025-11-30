@@ -28,11 +28,12 @@ public class Projectiles extends Entity {
 
     public static ArrayList<Object> attacks = new ArrayList<>();
 
-    Object[] fireball = new Object[8];
-    Object[] sprites = new Object[8];
-    Object[] rice_bag = new Object[8];
-    Object[] slash = new Object[8];
-    Object[] fart = new Object[8];
+    public Object[] fireball = new Object[8];
+    public Object[] sprites = new Object[8];
+    public Object[] rice_bag = new Object[8];
+    public Object[] slash = new Object[8];
+    public Object[] fart = new Object[8];
+    public Object[] meatball = new Object[8];
 
     public Projectiles(GamePanel gp) {
         super(gp);
@@ -53,6 +54,9 @@ public class Projectiles extends Entity {
             case "fart":
                 name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; damage = 0;
                 break;
+            case "meatball":
+                name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 10;
+                break;
         }
     }
 
@@ -68,11 +72,11 @@ public class Projectiles extends Entity {
                 if(Ultimate.player2Info[1] && user.equals("player2")) {set(x, y, direction, true, user, "slash");}
                 break;
             case "Zombie":
-                if(user.equals("player") && gp.player.direction.equals("right")) {set(x, y - 50, direction, true, user, "fart");}
-                if(user.equals("player") && gp.player.direction.equals("left")) {set(x - 60, y - 50, direction, true, user, "fart");}
-                if(user.equals("player2") && gp.player2.direction.equals("right")) {set(x, y - 50, direction, true, user, "fart");}
-                if(user.equals("player2") && gp.player2.direction.equals("left")) {set(x - 60, y - 50, direction, true, user, "fart");}
+                if(direction.equals("right")) {set(x, y - 50, direction, true, user, "fart");}
+                if(direction.equals("left")) {set(x - 60, y - 50, direction, true, user, "fart");}
                 break;
+            case "Guy":
+                set(x, y, direction, true, user, "meatball");
         }
         if(user.equals("player")) {gp.player.alive = true;}
         if(user.equals("player2")) {gp.player2.alive = true;}
@@ -165,23 +169,17 @@ public class Projectiles extends Entity {
             slash[i + 4] = getImage("projectiles/slash/Slash_Left" + (i + 1));
         }
         for(int i = 0; i <= 7; i++) {fart[i] = getImage("projectiles/fart/Fart");}
+        for(int i = 0; i <= 3; i++) {meatball[i] = getImage("player/Guy/ultimate/Guy_Meatball" + (i + 1)); meatball[i + 4] = getImage("player/Guy/ultimate/Guy_Meatball" + (i + 1));}
     }
 
     public void getSprites(String object) {
-        for(int i = 0; i <= 7; i++){
-            sprites[i] = null;
-        }
+        for(int i = 0; i <= 7; i++){sprites[i] = null;}
         switch(object) {
-            case "rice_bag":
-                System.arraycopy(rice_bag, 0, sprites, 0, 8);
-                break;
-            case "fireball":
-                System.arraycopy(fireball, 0, sprites, 0, 8);
-                break;
-            case "slash":
-                System.arraycopy(slash, 0, sprites, 0, 8);
-            case "fart":
-                System.arraycopy(fart, 0, sprites, 0, 8);
+            case "rice_bag": System.arraycopy(rice_bag, 0, sprites, 0, 8); break;
+            case "fireball": System.arraycopy(fireball, 0, sprites, 0, 8); break;
+            case "slash": System.arraycopy(slash, 0, sprites, 0, 8); break;
+            case "fart": System.arraycopy(fart, 0, sprites, 0, 8); break;
+            case "meatball": System.arraycopy(meatball, 0, sprites, 0, 8); break;
         }
     }
 

@@ -20,26 +20,28 @@ public class CollisionChecker {
         int entityBottomRow = entityBottomY/gp.TileSize;
 
         int tileNum1, tileNum2;
-        if (entityLeftCol >= 0 && entityRightCol < 16 && entityBottomRow < 12 && entityTopRow > 0) {
-            if (entity.ySpeed == 0) {
-                switch (entity.direction) {
-                    case "left":
-                        entityLeftCol = (entityLeftX - 24) / gp.TileSize;
-                        tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-                        tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                            entity.touchingX = true;
-                        } else {entity.touchingX = false;}
-                        break;
-                    case "right":
-                        entityRightCol = (entityRightX + 24) / gp.TileSize;
-                        tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-                        tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                            entity.touchingX = true;
-                        } else {entity.touchingX = false;}
-                        break;
-                }
+        if (entityLeftCol >= 0 && entityRightCol < gp.maxScreenCol && entityBottomRow < gp.maxScreenRow && entityTopRow > 0) {
+            switch (entity.direction) {
+                case "left":
+                    entityLeftCol = (entityLeftX) / gp.TileSize;
+                    tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+                    tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+                    if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        entity.touchingX = true;
+                    } else {
+                        entity.touchingX = false;
+                    }
+                    break;
+                case "right":
+                    entityRightCol = (entityRightX) / gp.TileSize;
+                    tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+                    tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+                    if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        entity.touchingX = true;
+                    } else {
+                        entity.touchingX = false;
+                    }
+                    break;
             }
             switch (entity.upDown) {
                 case "up":

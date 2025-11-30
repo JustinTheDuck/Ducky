@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener {
     public boolean upPressed, leftPressed, rightPressed, downPressed, upPressed2, leftPressed2, rightPressed2, downPressed2;
     public boolean spclPressed, spclPressed2, basicPressed, basicPressed2;
     public boolean gameClosePressed;
+    public boolean confirm;
 
     GamePanel gp;
 
@@ -34,9 +35,13 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {basicPressed = true;}
         if (code == KeyEvent.VK_M) {basicPressed2 = true;}
         if (code == KeyEvent.VK_ESCAPE) {
-            if(gp.gameState == gp.playState) {gp.gameState = gp.pauseState;}
-            else if(gp.gameState == gp.pauseState) {gp.gameState = gp.playState;}
+            if(gp.gameState == gp.playState) {gp.gameState = gp.pauseState; gp.ui.currentPauseState = gp.ui.baseState;}
+            else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.baseState) {gp.gameState = gp.playState;}
+            else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.controlState) {gp.ui.currentPauseState = gp.ui.baseState;}
+            else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.settingsState) {gp.ui.currentPauseState = gp.ui.baseState;}
+            else if(gp.gameState == gp.lossState) {gameClosePressed = true;}
         }
+        if(code == KeyEvent.VK_ENTER) {confirm = true;}
 
     }
 
@@ -56,6 +61,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {basicPressed = false;}
         if (code == KeyEvent.VK_M) {basicPressed2 = false;}
         if (code == KeyEvent.VK_ESCAPE) {gameClosePressed = false;}
+        if(code == KeyEvent.VK_ENTER) {confirm = false;}
 
     }
 }

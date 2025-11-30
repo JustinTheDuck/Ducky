@@ -13,6 +13,7 @@ import Tile.TileManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -20,7 +21,6 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 24;
     final int Scale = 2;
 
-    public boolean game;
     public int dead;
 
     public final int TileSize = originalTileSize * Scale; //48x48 tile
@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int ScreenHeight = maxScreenRow * TileSize;
 
     //For Full Screen
-    int ScreenWidth2 = ScreenWidth;
-    int ScreenHeight2 = ScreenHeight;
+    public int ScreenWidth2 = ScreenWidth;
+    public int ScreenHeight2 = ScreenHeight;
     BufferedImage tempScreen;
     Graphics g2;
 
@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
+    public MouseHandler mouseH = new MouseHandler(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
@@ -49,12 +50,13 @@ public class GamePanel extends JPanel implements Runnable {
     public UltimateBar ultimateBar = new UltimateBar(this);
     public SpecialAttackBar specialAttackBar = new SpecialAttackBar(this);
     public Ultimate ultimate = new Ultimate(this, keyH);
-    public UI ui = new UI(this);
+    public UI ui = new UI(this, keyH);
 
     //GAME STATE
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int lossState = 3;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
@@ -62,13 +64,19 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.addMouseListener(mouseH);
+        this.addMouseMotionListener(mouseH);
     }
 
     public void setupGame() {
         gameState = playState;
         tempScreen = new BufferedImage(ScreenWidth, ScreenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = tempScreen.getGraphics();
-        //setFullScreen();
+
+        ui.widthFactor = ScreenWidth2/ScreenWidth;
+        ui.heightFactor = ScreenHeight2/ScreenHeight;
+
+        setFullScreen();
     }
 
     public void setFullScreen() {
@@ -80,18 +88,29 @@ public class GamePanel extends JPanel implements Runnable {
         //Get Full screen width and height
         ScreenHeight2 = Main.window.getHeight();
         ScreenWidth2 = Main.window.getWidth();
+
+        ui.widthFactor = (double) Main.window.getWidth() /ScreenWidth;
+        ui.heightFactor = (double) Main.window.getHeight() /ScreenHeight;
+    }
+
+    public void restoreOriginalSize() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(null);
+        ScreenHeight2 = ScreenHeight;
+        ScreenWidth2 = ScreenWidth;
+
+        ui.widthFactor = 1;
+        ui.heightFactor = 1;
+
     }
 
     public void startGameThread() {
-        game = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-    public void closeProgram() {
-        Main.window.dispose();
-        game = false;
-    }
+    public void closeWindow() {Main.window.dispose(); System.exit(0);}
 
     public void run() {
         double drawInterval = (double) 1000000000 / FPS;
@@ -99,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null && game) {
+        while (gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             lastTime = currentTime;
@@ -110,22 +129,17 @@ public class GamePanel extends JPanel implements Runnable {
                 delta--;
             }
         }
-        System.out.println("Game Terminated");
-        if (dead == 1) {System.out.print(" Player 1 died");}
-        if (dead == 2) {System.out.print(" Player 2 died");}
     }
 
     public void update() {
-
         if(gameState == playState) {
-            if (keyH.gameClosePressed) {closeProgram();}
             //Update Character position
             player.update();
             player2.update();
             projectiles.update();
             healthBar.checkDead();
             ultimate.update();
-        }
+        } else if (gameState == lossState && keyH.gameClosePressed) {closeWindow();}
     }
 
     public void drawToTempScreen() {

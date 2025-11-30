@@ -19,8 +19,8 @@ public class ZombieUltimate {
     KeyHandler keyH;
 
     BufferedImage image;
-    BufferedImage basicLeft, basicRight, basicLeftJump, basicLeftDown, basicRightJump, basicRightDown;
-    BufferedImage ultimate;
+    public BufferedImage basicLeft, basicRight, basicLeftJump, basicLeftDown, basicRightJump, basicRightDown;
+    public BufferedImage ultimate;
 
     //Basic
     boolean basicHit = false;
@@ -91,7 +91,7 @@ public class ZombieUltimate {
         //Tile locations of the apple for player 2
         leftColumn2 = ultX2/gp.TileSize;
         rightColumn2 = (ultX2 + AppleHitbox.width)/gp.TileSize;
-        bottomRow2 = (ultY2 + 2 * ySpeed)/gp.TileSize;
+        bottomRow2 = (ultY2 + ySpeed)/gp.TileSize;
     }
 
     public void update() {
@@ -114,15 +114,15 @@ public class ZombieUltimate {
         if(Ultimate.player2Hitbox[1] >= fartHitbox[0] && Ultimate.player2Hitbox[0] <= fartHitbox[1] && Ultimate.player2Hitbox[3] >= fartHitbox[2] && Ultimate.player2Hitbox[2] <= fartHitbox[3]) {gp.player2.health -= DAMAGE;}
         if(Ultimate.playerHitbox[1] >= fartHitbox2[0] && Ultimate.playerHitbox[0] <= fartHitbox2[1] && Ultimate.playerHitbox[3] >= fartHitbox2[2] && Ultimate.playerHitbox[2] <= fartHitbox2[3]) {gp.player.health -= DAMAGE;}
         //Apple data/When to calculate damage
-        if(Ultimate.playerInfo[1]) {
-            ultY += ySpeed;
-            tileNum1 = gp.tileM.mapTileNum[leftColumn][bottomRow]; tileNum2 = gp.tileM.mapTileNum[rightColumn][bottomRow];
-            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.playerInfo[1] = false; calculateDamage("player"); PoisonDAMAGE++;}
-        }
-        if(Ultimate.player2Info[1]) {
+        if(Ultimate.player2Info[1] && gp.player2.Character.equals("Zombie")) {
             ultY2 += ySpeed;
             tileNum1 = gp.tileM.mapTileNum[leftColumn2][bottomRow2]; tileNum2 = gp.tileM.mapTileNum[rightColumn2][bottomRow2];
             if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.player2Info[1] = false; calculateDamage("player2"); PoisonDAMAGE2++;}
+        }
+        if(Ultimate.playerInfo[1] && gp.player.Character.equals("Zombie")) {
+            ultY += ySpeed;
+            tileNum1 = gp.tileM.mapTileNum[leftColumn][bottomRow]; tileNum2 = gp.tileM.mapTileNum[rightColumn][bottomRow];
+            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.playerInfo[1] = false; calculateDamage("player"); PoisonDAMAGE++;}
         }
         gp.player2.health -= PoisonDAMAGE;
         gp.player.health -= PoisonDAMAGE2;
@@ -144,7 +144,7 @@ public class ZombieUltimate {
         int damage = 100 - distance;
         int damage2 = 100 - distance2;
         if(damage > 0 && player.equals("player")) {gp.player2.health -= damage;}
-        if(damage2 > 0 && player.equals("player2")) {gp.player.health -= damage;}
+        if(damage2 > 0 && player.equals("player2")) {gp.player.health -= damage2;}
     }
 
     public void basicAttack(String player) {
@@ -178,7 +178,7 @@ public class ZombieUltimate {
             if(gp.player2.direction.equals("right") && gp.player2.upDown.equals("null")) {g2.drawImage(basicRight, gp.player2.x, gp.player2.y, gp.TileSize, gp.TileSize, null);}
             if(gp.player2.direction.equals("right") && gp.player2.upDown.equals("down")) {g2.drawImage(basicRightDown, gp.player2.x, gp.player2.y, gp.TileSize, gp.TileSize, null);}
         }
-        if(Ultimate.player2Info[1]) {g2.drawImage(ultimate, ultX2, ultY2, gp.TileSize, gp.TileSize, null);}
+        if(Ultimate.player2Info[1]) {g2.drawImage(ultimate, ultX2, ultY2, gp.TileSize, gp.TileSize, null); System.out.println("drawing");}
     }
 
     public BufferedImage getImage(String filePath) {

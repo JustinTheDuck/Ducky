@@ -50,10 +50,10 @@ public class CharacterLoader {
 
     public static int getCharacterUltimateDelay(String Character) {
         switch(Character){
-            case "Duck", "Zombie":
+            case "Duck", "Zombie", "Guy":
                 ultimateDELAY = 5;
                 break;
-            case("Rice"):
+            case "Rice":
                 ultimateDELAY = 10;
                 break;
         }

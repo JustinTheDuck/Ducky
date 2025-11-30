@@ -61,13 +61,8 @@ public class HealthBar {
     }
 
     public void checkDead() {
-        if(gp.player.health <= 0) {
-            gp.game = false;
-            gp.dead = 1;
-        }
-        if(gp.player2.health <= 0) {
-            gp.game = false;
-            gp.dead = 2;
+        if(gp.player.health <= 0) {gp.dead = 1; gp.gameState = gp.lossState;}
+        if(gp.player2.health <= 0) {gp.dead = 2; gp.gameState = gp.lossState;
         }
     }
 
