@@ -17,9 +17,9 @@ public class GuyUltimate {
     public BufferedImage image, meth;
 
     //Ultimate data
-    int ultimateDecrement;
+    int ultimateDecrement, ultimateDecrement2;
     final int ultimateDecrementCondition = 2;
-    int meatball;
+    int meatball, meatball2;
     final int meatballSpawnCondition = 5;
 
     //Meth data
@@ -48,13 +48,13 @@ public class GuyUltimate {
             methHitbox[0] = x; methHitbox[1] = x + MethHitbox.width; methHitbox[2] = y; methHitbox[3] = y + MethHitbox.height;}
         if(player.equals("player2")) {
             Ultimate.player2Info[0] = true; basicCounter2 = 0;
-            x2 = gp.player2.x; y = gp.player2.y;
+            x2 = gp.player2.x; y2 = gp.player2.y;
             methHitbox2[0] = x2; methHitbox2[1] = x2 + MethHitbox.width; methHitbox2[2] = y2; methHitbox2[3] = y2 + MethHitbox.height;}
     }
 
     public void ultimateAttack(String player) {
         if (player.equals("player")) {Ultimate.playerInfo[1] = true; ultimateDecrement = 0; gp.player.ultimateCounting = false;}
-        if (player.equals("player2")) {Ultimate.player2Info[1] = true;}
+        if (player.equals("player2")) {Ultimate.player2Info[1] = true; ultimateDecrement2 = 0; gp.player2.ultimateCounting = false;}
     }
 
     public void update() {
@@ -69,15 +69,28 @@ public class GuyUltimate {
             ultimateDecrement++;
             if (ultimateDecrement >= ultimateDecrementCondition) {
                 meatball++; ultimateDecrement = 0; gp.player.ultimateProgress--;
-                if (meatball >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player.x, gp.player.y, "right", "player");meatball = 0;}
+                if (meatball >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player.x, gp.player.y, "right", "player"); meatball = 0;}
                 if (gp.player.ultimateProgress <= 0) {gp.player.ultimateCounting = true; Ultimate.playerInfo[1] = false;}}}
+        if (Ultimate.player2Info[1]) {
+            ultimateDecrement2++;
+            if (ultimateDecrement2 >= ultimateDecrementCondition) {
+                meatball2++; ultimateDecrement2 = 0; gp.player2.ultimateProgress--;
+                if (meatball2 >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player2.x, gp.player2.y, "right", "player2"); meatball2 = 0;}
+                if (gp.player2.ultimateProgress <= 0) {gp.player2.ultimateCounting = true; Ultimate.player2Info[1] = false;}}}
+        if (Ultimate.player2Info[0]) {
+            basicCounter2++;
+            if (Ultimate.playerHitbox[1] >= methHitbox2[0] && Ultimate.playerHitbox[0] <= methHitbox2[1] && Ultimate.playerHitbox[3] >= methHitbox2[2] && Ultimate.playerHitbox[2] <= methHitbox2[3]) {gp.player.health -= methDAMAGE;}
+            if (maxLife <= basicCounter2) {Ultimate.player2Info[0] = false; gp.player2.basicCOUNTER = 0;}
+        }
     }
 
     public void drawP1(Graphics2D g2) {
         if(Ultimate.playerInfo[0]) {g2.drawImage(meth, x, y, gp.TileSize, gp.TileSize, null);}
     }
 
-    public void drawP2(Graphics2D g2) {}
+    public void drawP2(Graphics2D g2) {
+        if(Ultimate.player2Info[0]) {g2.drawImage(meth, x2, y2, gp.TileSize, gp.TileSize, null);}
+    }
 
     public BufferedImage getImage(String filePath) {
         try {image = ImageIO.read((CharacterLoader.class.getClassLoader().getResourceAsStream("player/Guy/" + filePath + ".png")));}

@@ -195,13 +195,19 @@ public class Controls {
             g2.drawImage(rightArrowHover, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
         else {g2.drawImage(rightArrow, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
         g2.setFont(gp.ui.TimesNewRoman);
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 15F));
         g2.setColor(Color.white);
         if(playerState == 1){text = "Player 1";}
         if(playerState == 2){text = "Player 2";}
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y - gp.ui.height / 2 - yOffset / 2 + yOffset + textHeight);
+        g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + textHeight);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+        if(playerState == 1){text = gp.player.Character;}
+        if(playerState == 2){text = gp.player2.Character;}
+        int characterTextHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y - gp.ui.height / 2 + textHeight + characterTextHeight + 5);
 
         //ULTIMATE BOX
         c = new Color(255, 10, 255);

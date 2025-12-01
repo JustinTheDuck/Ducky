@@ -81,7 +81,7 @@ public class SpecialAttackBar {
             if(percent < 75 && percent >= 50) {g2.drawImage(spclBarLeft_1, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
             if(percent < 50 && percent >= 25) {g2.drawImage(spclBarLeft_2, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
             if(percent < 25 && percent > 0) {g2.drawImage(spclBarLeft_3, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
-            if(percent <= 0 ) {g2.drawImage(spclBarLeft_3, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
+            if(percent <= 0 ) {g2.drawImage(spclBarLeft_4, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
 
         }
         if(!gp.player.alive && !gp.player.Character.equals("Guy")) {g2.drawImage(spclBarRight_4, xLocation, yLocal, xSize/2, ySize/2, null);}
