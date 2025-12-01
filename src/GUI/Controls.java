@@ -60,7 +60,10 @@ public class Controls {
     //PLAYER SELECTION
     final int playerSelectionWidth = 48 * 7;
     int playerState = 1;
-    BufferedImage leftArrow, rightArrow;
+    BufferedImage leftArrow, rightArrow, leftArrowHover, rightArrowHover;
+    int[] rightArrowHitbox = new int[4];
+    int[] leftArrowHitbox = new int[4];
+    int ArrowCOUNTER = 0;
     
     public Controls(GamePanel gp) {
         this.gp = gp;
@@ -99,12 +102,34 @@ public class Controls {
         guyImages[2] = (BufferedImage) gp.projectiles.meatball[0];
         leftArrow = getImage("character_arrows/next_left");
         rightArrow = getImage("character_arrows/next_right");
+        leftArrowHover = getImage("character_arrows/next_leftHover");
+        rightArrowHover = getImage("character_arrows/next_rightHover");
     }
 
     public void draw(Graphics2D g2) {
-        if(playerState == 1) {key_basic = key_e; key_special = key_q; key_ultimate = key_s; characterImage = gp.player.right1;} else if(playerState == 2) {key_basic = key_n; key_special = key_m; key_ultimate = key_down; characterImage = gp.player2.right1;}
+        ArrowCOUNTER++;
+        if(playerState == 1){
+            switch(gp.player.Character) {
+                case "Duck": controlState = duckState; break;
+                case "Rice": controlState = riceState; break;
+                case "Zombie": controlState = zombieState; break;
+                case "Guy": controlState = guyState; break;
+            }
+            characterImage = gp.player.right1;
+        }
+        if(playerState == 2){
+            switch(gp.player2.Character) {
+                case "Duck": controlState = duckState; break;
+                case "Rice": controlState = riceState; break;
+                case "Zombie": controlState = zombieState; break;
+                case "Guy": controlState = guyState; break;
+            }
+            characterImage = gp.player2.right1;
+        }
         switch(controlState) {
             case duckState:
+                if(playerState == 1){key_basic = key_e; key_special = key_q; key_ultimate = key_s;}
+                if(playerState == 2){key_basic = key_m; key_special = key_n; key_ultimate = key_down;}
                 basic = duckImages[0]; special = duckImages[1]; ultimate = duckImages[2]; ultimate2 = duckImages[3];
                 basicXOffset = 10; basicYOffset = 0; specialXOffset = 20; specialYOffset = 0; ultimateXOffset = -5; ultimateYOffset = 20; specialScale = 1;
                 basicText = "Punches enemy player\n(If in range)";
@@ -112,12 +137,16 @@ public class Controls {
                 ultimateName = "Smash Attack"; ultimateText = "Duck SMASHES down\ndoes damage based on how fast\nand how close Duck is to enemy";
                 break;
             case riceState:
+                if(playerState == 1){key_basic = null; key_special = key_q; key_ultimate = key_e;}
+                if(playerState == 2){key_basic = null; key_special = key_n; key_ultimate = key_m;}
                 basic = riceImages[0]; special = riceImages[1]; ultimate = riceImages[2]; ultimate2 = riceImages[3];
                 specialXOffset = 20; specialYOffset = 0; ultimateXOffset = 0; ultimateYOffset = 0; ultimateXOffset2 = imageSize * 2; ultimateYOffset2 = 0; specialScale = 1;
                 specialText = "Launches a Rice Bag\nin direction player is facing";
                 ultimateName = "Ching Chong"; ultimateText = "Rice Farmer unlocks full potential\nand uses scythe to attack\ninstead of rice bags\n(Launched with special key)";
                 break;
             case zombieState:
+                if(playerState == 1){key_basic = key_e; key_special = key_q; key_ultimate = key_s;}
+                if(playerState == 2){key_basic = key_m; key_special = key_n; key_ultimate = key_down;}
                 basic = zombieImages[0]; special = zombieImages[1]; ultimate = zombieImages[2]; ultimate2 = zombieImages[3];
                 basicXOffset = 0; basicYOffset = 0; specialXOffset = 5; specialYOffset = 0; ultimateXOffset = 0; ultimateYOffset = 0; specialScale = 2;
                 basicText = "Punches enemy player\n(If in range)";
@@ -125,6 +154,8 @@ public class Controls {
                 ultimateName = "Poison Apple"; ultimateText = "Zombie spawns a poisonous apple\nwhich does deals \npermanent poison damage\nand how close the apple\nlands to the enemy";
                 break;
             case guyState:
+                if(playerState == 1){key_basic = null; key_special = key_e; key_ultimate = key_q;}
+                if(playerState == 2){key_basic = null; key_special = key_m; key_ultimate = key_n;}
                 basic = guyImages[0]; special = guyImages[1]; ultimate = guyImages[2]; ultimate2 = guyImages[3];
                 specialXOffset = 0; specialYOffset = 10; ultimateYOffset = 20; ultimateXOffset = 0;
                 specialText = "Places a spike\ndeals damage if enemy lands on it";
@@ -145,12 +176,29 @@ public class Controls {
         c = new Color(36, 52, 71);
         g2.setColor(c);
         g2.fillRoundRect(gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 - yOffset / 2 + yOffset, playerSelectionWidth, 2 * yOffset, 30, 30);
-        g2.drawImage(leftArrow, gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);
-        g2.drawImage(rightArrow, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);
+        leftArrowHitbox[0] = (int) ((gp.ui.x - playerSelectionWidth / 2) * gp.ui.widthFactor);
+        leftArrowHitbox[1] = (int) ((gp.ui.x - playerSelectionWidth / 2 + 2 * yOffset) * gp.ui.widthFactor);
+        leftArrowHitbox[2] = (int) ((gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5) * gp.ui.heightFactor);
+        leftArrowHitbox[3] = (int) ((gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5 + 2 * (yOffset - 5)) * gp.ui.heightFactor);
+        if(ArrowCOUNTER >= 10 && leftArrowHitbox[0] < gp.mouseH.x && leftArrowHitbox[1] > gp.mouseH.x && leftArrowHitbox[2] < gp.mouseH.y && leftArrowHitbox[3] > gp.mouseH.y) {
+            if(gp.mouseH.pressed) {playerState++; ArrowCOUNTER = 0;}
+            if(playerState == 3) {playerState = 1;}
+            g2.drawImage(leftArrowHover, gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
+        else {g2.drawImage(leftArrow, gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
+        rightArrowHitbox[0] = (int) ((gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset) * gp.ui.widthFactor);
+        rightArrowHitbox[1] = (int) ((gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth) * gp.ui.widthFactor);
+        rightArrowHitbox[2] = (int) ((gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5) * gp.ui.heightFactor);
+        rightArrowHitbox[3] = (int) ((gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5 + 2 * (yOffset - 5)) * gp.ui.heightFactor);
+        if(ArrowCOUNTER >= 10 && rightArrowHitbox[0] < gp.mouseH.x && rightArrowHitbox[1] > gp.mouseH.x && rightArrowHitbox[2] < gp.mouseH.y && rightArrowHitbox[3] > gp.mouseH.y) {
+            if(gp.mouseH.pressed) {playerState++; ArrowCOUNTER = 0;}
+            if(playerState == 3) {playerState = 1;}
+            g2.drawImage(rightArrowHover, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
+        else {g2.drawImage(rightArrow, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);}
         g2.setFont(gp.ui.TimesNewRoman);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
         g2.setColor(Color.white);
         if(playerState == 1){text = "Player 1";}
+        if(playerState == 2){text = "Player 2";}
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y - gp.ui.height / 2 - yOffset / 2 + yOffset + textHeight);
