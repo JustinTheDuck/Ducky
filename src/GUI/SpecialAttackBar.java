@@ -51,7 +51,7 @@ public class SpecialAttackBar {
 
     public void draw(Graphics2D g2){
         for(int i = 0; i < attacks.size(); i++) {
-            if(i%12 == 0){
+            if(i % 13 == 0){
                 percent = 100 * (int) attacks.get(i+8)/ (int) attacks.get(i+11);
                 if(attacks.get(i + 6) == "player"){
                     if(percent >= 75) {g2.drawImage(spclBarRight_0, xLocation, yLocal, xSize/2, ySize/2, null);}

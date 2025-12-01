@@ -20,6 +20,8 @@ public class Projectiles extends Entity {
     int spriteCounter2;
     int spriteNum2 = 1;
 
+    Rectangle hitbox = new Rectangle(0, 0, 48, 48);
+
     int ySpeedo;
     boolean hit;
     String user;
@@ -41,23 +43,21 @@ public class Projectiles extends Entity {
         Images();
     }
 
-    public void getData(String type) {
+    public Rectangle getData(String type) {
+        Rectangle r = new Rectangle();
         switch(type) {
             case "fireball":
-                name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 20; g = 0; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 20; g = 0; break;
             case "slash":
-                name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 10; g = 0;
-                break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 10; g = 0; break;
             case "rice_bag":
-                name = "rice_bag"; xSpeed = 10; ySpeedo = 0; maxLife = 60; life = maxLife; g = -0.5;
-                break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "rice_bag"; xSpeed = 10; ySpeedo = 0; maxLife = 60; life = maxLife; g = -0.5; break;
             case "fart":
-                name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; damage = 0;
-                break;
+                r.setSize(3 * gp.TileSize,3 * gp.TileSize); name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; damage = 0; break;
             case "meatball":
-                name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 10;
-                break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 10; break;
         }
+        return r;
     }
 
     public void getCharacter(String character, int x, int y, String direction, String user) {
@@ -90,8 +90,8 @@ public class Projectiles extends Entity {
         this.life = maxLife;
         this.hit = false;
         this.user = user;
-        getData(type);
-        addAttack(name, x, y, xSpeed, ySpeedo, direction, user, damage, life, hit, g, maxLife);
+        Rectangle newHitbox = getData(type);
+        addAttack(name, x, y, xSpeed, ySpeedo, direction, user, damage, life, hit, g, maxLife, newHitbox);
     }
 
     public void updatePlayer2Hitbox() {
@@ -112,7 +112,7 @@ public class Projectiles extends Entity {
         //Cycles through Array List to update
         for(int i = 0; i < attacks.size(); i++) {
             //Gets data from array list
-            if(i % 12 == 0) {
+            if(i % 13 == 0) {
                 if(attacks.get(i + 5) == "right") {attacks.set(i + 1, (int)attacks.get(i + 1) + (int)attacks.get(i + 3));}
                 if(attacks.get(i + 5) == "left") {attacks.set(i + 1, (int)attacks.get(i + 1) - (int)attacks.get(i + 3));}
                 if(attacks.get(i + 6) == "player") {
@@ -188,7 +188,7 @@ public void draw(Graphics2D g2) {
     //Change picture based on direction
         for (int i = 0; i < attacks.size(); i++) {
             if(attacks.size() < 5){break;}
-            if (i % 12 == 0) {
+            if (i % 13 == 0) {
                 //Gets the images required for projectile named i
                 getSprites((String) attacks.get(i));
                 if(attacks.get(i) == "rice_bag"){
@@ -217,14 +217,14 @@ public void draw(Graphics2D g2) {
                             break;
                     }
                 }
-                if(attacks.get(i).equals("fart")) {size = gp.TileSize * 3;}
-                else{size = gp.TileSize;}
+                int size = (int) ((Rectangle) attacks.get(i + 12)).getWidth();
                 g2.drawImage(image, (int) attacks.get(i + 1), (int) attacks.get(i + 2), size, size, null);
+                System.out.println(attacks);
             }
     }
 }
 
-    public void addAttack(String name, int x, int y, int xVelocity, double yVelocity, String direction, String user, int damage, int life, boolean hit, double g, int maxLife) {
+    public void addAttack(String name, int x, int y, int xVelocity, double yVelocity, String direction, String user, int damage, int life, boolean hit, double g, int maxLife, Rectangle hitbox) {
         attacks.add(name);
         attacks.add(x);
         attacks.add(y);
@@ -237,6 +237,7 @@ public void draw(Graphics2D g2) {
         attacks.add(hit);
         attacks.add(g);
         attacks.add(maxLife);
+        attacks.add(hitbox);
     }
 
     //Removes projectile from Array list once dead
@@ -244,7 +245,7 @@ public void draw(Graphics2D g2) {
         //Tells both players when their projectile is dead
         if(attacks.get(i+6) == "player") {gp.player.alive = false;}
         if(attacks.get(i+6) == "player2") {gp.player2.alive = false;}
-        for(int a = 1; a < 13; a++) {
+        for(int a = 1; a < 14; a++) {
             attacks.remove(i);
         }
     }
