@@ -17,6 +17,7 @@ public class Controls {
     BufferedImage up, down, left, right;
     BufferedImage key_basic, key_ultimate, key_special;
     BufferedImage basic, ultimate, special, ultimate2;
+    BufferedImage characterImage;
     BufferedImage[] duckImages = new BufferedImage[4];
     BufferedImage[] riceImages = new BufferedImage[4];
     BufferedImage[] zombieImages = new BufferedImage[4];
@@ -56,7 +57,10 @@ public class Controls {
     final int zombieState = 3;
     final int guyState = 4;
 
+    //PLAYER SELECTION
+    final int playerSelectionWidth = 48 * 7;
     int playerState = 1;
+    BufferedImage leftArrow, rightArrow;
     
     public Controls(GamePanel gp) {
         this.gp = gp;
@@ -93,10 +97,12 @@ public class Controls {
         zombieImages[2] = gp.ultimate.zombieUltimate.ultimate;
         guyImages[1] = gp.ultimate.guyUltimate.meth;
         guyImages[2] = (BufferedImage) gp.projectiles.meatball[0];
+        leftArrow = getImage("character_arrows/next_left");
+        rightArrow = getImage("character_arrows/next_right");
     }
 
     public void draw(Graphics2D g2) {
-        if(playerState == 1) {key_basic = key_e; key_special = key_q; key_ultimate = key_s;} else if(playerState == 2) {key_basic = key_n; key_special = key_m; key_ultimate = key_down;}
+        if(playerState == 1) {key_basic = key_e; key_special = key_q; key_ultimate = key_s; characterImage = gp.player.right1;} else if(playerState == 2) {key_basic = key_n; key_special = key_m; key_ultimate = key_down; characterImage = gp.player2.right1;}
         switch(controlState) {
             case duckState:
                 basic = duckImages[0]; special = duckImages[1]; ultimate = duckImages[2]; ultimate2 = duckImages[3];
@@ -134,6 +140,20 @@ public class Controls {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(gp.ui.borderThickness));
         g2.drawRoundRect(gp.ui.x - gp.ui.width, gp.ui.y - gp.ui.height / 2, gp.ui.width * 2, gp.ui.height, 50, 50);
+
+        //PLAYER SELECTION
+        c = new Color(36, 52, 71);
+        g2.setColor(c);
+        g2.fillRoundRect(gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 - yOffset / 2 + yOffset, playerSelectionWidth, 2 * yOffset, 30, 30);
+        g2.drawImage(leftArrow, gp.ui.x - playerSelectionWidth / 2, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);
+        g2.drawImage(rightArrow, gp.ui.x - playerSelectionWidth / 2 + playerSelectionWidth - 2 * yOffset, gp.ui.y - gp.ui.height / 2 + yOffset / 2 + 5, 2 * yOffset, 2 * (yOffset - 5), null);
+        g2.setFont(gp.ui.TimesNewRoman);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+        g2.setColor(Color.white);
+        if(playerState == 1){text = "Player 1";}
+        textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y - gp.ui.height / 2 - yOffset / 2 + yOffset + textHeight);
 
         //ULTIMATE BOX
         c = new Color(255, 10, 255);
@@ -181,7 +201,7 @@ public class Controls {
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         g2.drawString(text, gp.ui.x + gp.ui.width - ultWidth + xOffset + factor * keyWidth, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + textHeight);
-        g2.drawImage(gp.player.right1, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize, imageSize * 2, imageSize * 2, null);
+        g2.drawImage(characterImage, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize, imageSize * 2, imageSize * 2, null);
 
         textHeight = (int) g2.getFontMetrics().getStringBounds(ultimateName, g2).getHeight();
         g2.drawString(ultimateName, gp.ui.x + gp.ui.width - ultWidth - xOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + 2 * textHeight + (gp.ui.height + 5 * yOffset / 2) / 4);
@@ -196,7 +216,7 @@ public class Controls {
         g2.fillRoundRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + textHeight + (gp.ui.height - 5 * yOffset) / 2 - textHeight - 30, gp.ui.width * 2 - 3 * xOffset - ultWidth - imageWidth - 2 * factor * keyWidth - 2 * xKeyOffset, 30, 30, 30);
         g2.fillRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + textHeight + (gp.ui.height - 5 * yOffset) / 2 - textHeight - 30, 30, 30);
 
-        g2.drawImage(gp.player.right1, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 4 + keyHeight * factor/2 - keyHeight * factor - imageSize / 2, imageSize, imageSize, null);
+        g2.drawImage(characterImage, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 4 + keyHeight * factor/2 - keyHeight * factor - imageSize / 2, imageSize, imageSize, null);
         g2.drawImage(left, gp.ui.x - gp.ui.width + xOffset/2 + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 4 + keyHeight * factor/2 - keyHeight * factor - imageSize / 4, imageSize / 2, imageSize / 2, null);
         g2.drawImage(right, gp.ui.x - gp.ui.width - xOffset/2 + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 + imageSize, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 4 + keyHeight * factor/2 - keyHeight * factor - imageSize / 4, imageSize / 2, imageSize / 2, null);
         g2.drawImage(up, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/4, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 2 * (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 4 + keyHeight * factor/2 - keyHeight * factor - imageSize / 2 - yOffset, imageSize / 2, imageSize / 2, null);
@@ -207,7 +227,7 @@ public class Controls {
         g2.fillRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + textHeight + 5, gp.ui.width * 2 - 3 * xOffset - ultWidth - imageWidth - 2 * factor * keyWidth - 2 * xKeyOffset, (gp.ui.height - 5 * yOffset) / 4 - textHeight - 15);
         g2.fillRoundRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + textHeight + 5, gp.ui.width * 2 - 3 * xOffset - ultWidth - imageWidth - 2 * factor * keyWidth - 2 * xKeyOffset, 25, 30, 30);
         g2.fillRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + textHeight + 5, 30, 25);
-        g2.drawImage(gp.player.right1, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + imageSize/2, imageSize, imageSize, null);
+        g2.drawImage(characterImage, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + imageSize/2, imageSize, imageSize, null);
 
         text = "Special Attack";
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
@@ -215,7 +235,7 @@ public class Controls {
         g2.fillRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 4 * yOffset + 5, gp.ui.width * 2 - 3 * xOffset - ultWidth - imageWidth - 2 * factor * keyWidth - 2 * xKeyOffset, (gp.ui.height - 5 * yOffset) / 4 - textHeight - 15);
         g2.fillRoundRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + textHeight + 5 + (gp.ui.height - 5 * yOffset) / 4 - textHeight - 30, gp.ui.width * 2 - 3 * xOffset - ultWidth - imageWidth - 2 * factor * keyWidth - 2 * xKeyOffset, 25, 30, 30);
         g2.fillRect(gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + textHeight + 5 + (gp.ui.height - 5 * yOffset) / 4 - textHeight - 30, 30, 25);
-        g2.drawImage(gp.player.right1, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + ((gp.ui.height - 5 * yOffset) / 4 - imageSize) / 2, imageSize, imageSize, null);
+        g2.drawImage(characterImage, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - imageSize/2, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + ((gp.ui.height - 5 * yOffset) / 4 - imageSize) / 2, imageSize, imageSize, null);
 
         g2.setColor(Color.BLACK);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
