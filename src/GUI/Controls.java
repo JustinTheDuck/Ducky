@@ -254,11 +254,11 @@ public class Controls {
         text = "Ultimate";
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        g2.drawString(text, gp.ui.x + gp.ui.width - ultWidth + xOffset + factor * keyWidth, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + textHeight);
+        g2.drawString(text, gp.ui.x + gp.ui.width - ultWidth + xOffset + factor * keyWidth, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + textHeight - 5);
         g2.drawImage(characterImage, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize, imageSize * 2, imageSize * 2, null);
 
         textHeight = (int) g2.getFontMetrics().getStringBounds(ultimateName, g2).getHeight();
-        g2.drawString(ultimateName, gp.ui.x + gp.ui.width - ultWidth - xOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + 2 * textHeight + (gp.ui.height + 5 * yOffset / 2) / 4);
+        g2.drawString(ultimateName, gp.ui.x + gp.ui.width - ultWidth - xOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + 2 * textHeight + (gp.ui.height + 5 * yOffset / 2) / 4 - 5);
         g2.fillRoundRect(gp.ui.x + gp.ui.width - ultWidth - xOffset, 5 + gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + 2 * textHeight + (gp.ui.height + 5 * yOffset / 2) / 4 , ultWidth, gp.ui.height - 4 * yOffset - (gp.ui.height + 5 * yOffset / 2) / 4 - 2 * textHeight - 20, 30, 30);
         g2.fillRect(gp.ui.x + gp.ui.width - ultWidth - xOffset, 5 + gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + 2 * textHeight + (gp.ui.height + 5 * yOffset / 2) / 4, ultWidth, 30);
 
@@ -303,9 +303,9 @@ public class Controls {
         g2.drawImage(key_basic, gp.ui.x - gp.ui.width + xOffset + xKeyOffset + keyWidth * factor / 2, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + (gp.ui.height - 5 * yOffset) / 8 - keyHeight * factor / 2, keyWidth * factor, keyHeight * factor, null);
         g2.drawImage(special, gp.ui.x - gp.ui.width + xOffset + 2 * xKeyOffset + 2 * keyWidth * factor + imageWidth/2 - (specialScale * imageSize) /2 + specialXOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + ((gp.ui.height - 5 * yOffset) / 4 - specialScale * imageSize) / 2 + specialYOffset, specialScale * imageSize, specialScale * imageSize, null);
         g2.drawImage(key_special, gp.ui.x - gp.ui.width + xOffset + xKeyOffset + keyWidth * factor / 2, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + (gp.ui.height - 5 * yOffset) / 4 + (gp.ui.height - 5 * yOffset) / 8 - keyHeight * factor / 2, keyWidth * factor, keyHeight * factor, null);
-        g2.drawImage(ultimate, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize + ultimateXOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize + ultimateYOffset, 2 * imageSize, 2 * imageSize, null);
+        g2.drawImage(ultimate, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize + ultimateXOffset, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize + ultimateYOffset - 5, 2 * imageSize, 2 * imageSize, null);
         g2.drawImage(ultimate2, gp.ui.x + gp.ui.width - ultWidth - xOffset + ultWidth/2 - imageSize + ultimateXOffset2, gp.ui.y - gp.ui.height / 2 + 7 * yOffset / 2 + textHeight + (gp.ui.height + 5 * yOffset / 2) / 8 - imageSize + ultimateYOffset2, 2 * imageSize, 2 * imageSize, null);
-        g2.drawImage(key_ultimate, gp.ui.x + gp.ui.width - ultWidth + factor * keyWidth / 2 - xOffset, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + textHeight / 2 - factor * keyHeight / 4, factor * keyWidth, factor * keyHeight, null);
+        g2.drawImage(key_ultimate, gp.ui.x + gp.ui.width - ultWidth + factor * keyWidth / 2 - xOffset, gp.ui.y - gp.ui.height / 2 + 3 * yOffset + textHeight / 2 - factor * keyHeight / 4 - 5, factor * keyWidth, factor * keyHeight, null);
     }
 
     public BufferedImage getImage(String filePath) {

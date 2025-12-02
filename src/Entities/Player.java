@@ -29,7 +29,7 @@ public class Player extends Entity{
 
     public void setDefaultValues(){
         //Get default starting values for character
-        Character = "Duck";
+        Character = "Rice";
         user = "player";
         x = 100;
         y = 100;
