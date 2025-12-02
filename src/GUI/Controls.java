@@ -140,6 +140,7 @@ public class Controls {
                 if(playerState == 1){key_basic = null; key_special = key_q; key_ultimate = key_e;}
                 if(playerState == 2){key_basic = null; key_special = key_n; key_ultimate = key_m;}
                 basic = riceImages[0]; special = riceImages[1]; ultimate = riceImages[2]; ultimate2 = riceImages[3];
+                basicText = "N/A";
                 specialXOffset = 20; specialYOffset = 0; ultimateXOffset = 0; ultimateYOffset = 0; ultimateXOffset2 = imageSize * 2; ultimateYOffset2 = 0; specialScale = 1;
                 specialText = "Launches a Rice Bag\nin direction player is facing";
                 ultimateName = "Ching Chong"; ultimateText = "Rice Farmer unlocks full potential\nand uses scythe to attack\ninstead of rice bags\n(Launched with special key)";
@@ -151,12 +152,13 @@ public class Controls {
                 basicXOffset = 0; basicYOffset = 0; specialXOffset = 5; specialYOffset = 0; ultimateXOffset = 0; ultimateYOffset = 0; specialScale = 2;
                 basicText = "Punches enemy player\n(If in range)";
                 specialText = "Launches a Poison Cloud (Fart)\nin direction player is facing";
-                ultimateName = "Poison Apple"; ultimateText = "Zombie spawns a poisonous apple\nwhich does deals \npermanent poison damage\nand how close the apple\nlands to the enemy";
+                ultimateName = "Poison Apple"; ultimateText = "Zombie spawns a poisonous apple\nwhich deals \npermanent poison damage\nand how close the apple\nlands to the enemy";
                 break;
             case guyState:
                 if(playerState == 1){key_basic = null; key_special = key_e; key_ultimate = key_q;}
                 if(playerState == 2){key_basic = null; key_special = key_m; key_ultimate = key_n;}
                 basic = guyImages[0]; special = guyImages[1]; ultimate = guyImages[2]; ultimate2 = guyImages[3];
+                basicText = "N/A";
                 specialXOffset = 0; specialYOffset = 10; ultimateYOffset = 20; ultimateXOffset = 0;
                 specialText = "Places a spike\ndeals damage if enemy lands on it";
                 ultimateName = "Meatball Rain"; ultimateText = "Rains fireballs from the sky\ndeals damage if it hits enemy";

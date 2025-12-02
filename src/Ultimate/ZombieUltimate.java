@@ -110,9 +110,7 @@ public class ZombieUltimate {
             //When to kill Punch
             if (life <= basicCounter2) {gp.player2.basicCOUNTER = 0; Ultimate.player2Info[0] = false; basicCounter2 = 0; basicHit2 = false;}
         }
-        //Check it players collide with the fart hitbox
-        if(Ultimate.player2Hitbox[1] >= fartHitbox[0] && Ultimate.player2Hitbox[0] <= fartHitbox[1] && Ultimate.player2Hitbox[3] >= fartHitbox[2] && Ultimate.player2Hitbox[2] <= fartHitbox[3]) {gp.player2.health -= DAMAGE;}
-        if(Ultimate.playerHitbox[1] >= fartHitbox2[0] && Ultimate.playerHitbox[0] <= fartHitbox2[1] && Ultimate.playerHitbox[3] >= fartHitbox2[2] && Ultimate.playerHitbox[2] <= fartHitbox2[3]) {gp.player.health -= DAMAGE;}
+
         //Apple data/When to calculate damage
         if(Ultimate.player2Info[1] && gp.player2.Character.equals("Zombie")) {
             ultY2 += ySpeed;

@@ -45,11 +45,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Player player = new Player(this, keyH);
     public Player2 player2 = new Player2(this, keyH);
+    public Ultimate ultimate = new Ultimate(this, keyH);
     public Projectiles projectiles = new Projectiles(this);
     public HealthBar healthBar = new HealthBar(this);
     public UltimateBar ultimateBar = new UltimateBar(this);
     public SpecialAttackBar specialAttackBar = new SpecialAttackBar(this);
-    public Ultimate ultimate = new Ultimate(this, keyH);
     public UI ui = new UI(this, keyH);
 
     //GAME STATE
