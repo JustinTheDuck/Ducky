@@ -85,7 +85,7 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2) {
-        //Loops until complete draw of map
+        //Loops until complete drawTitleScreen of map
         int col = 0;
         int row = 0;
         int x = 0;

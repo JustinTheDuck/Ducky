@@ -29,8 +29,8 @@ public class Controls {
     int ultimateXOffset2 = 0, ultimateYOffset2 = 0;
 
     //SCREEN DATA
-    final int xOffset = 15;
-    final int yOffset = 30;
+    public final int xOffset = 15;
+    public final int yOffset = 30;
     final int ultWidth = 300;
 
     //KEY DRAW INFO

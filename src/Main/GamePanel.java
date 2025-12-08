@@ -11,9 +11,10 @@ import GUI.HealthBar;
 import Ultimate.Ultimate;
 import Tile.TileManager;
 
+import Menu.Title;
+
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -51,9 +52,11 @@ public class GamePanel extends JPanel implements Runnable {
     public UltimateBar ultimateBar = new UltimateBar(this);
     public SpecialAttackBar specialAttackBar = new SpecialAttackBar(this);
     public UI ui = new UI(this, keyH);
+    public Title title = new Title(this);
 
     //GAME STATE
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int lossState = 3;
@@ -69,12 +72,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        gameState = playState;
+        gameState = titleState;
         tempScreen = new BufferedImage(ScreenWidth, ScreenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = tempScreen.getGraphics();
 
-        ui.widthFactor = ScreenWidth2/ScreenWidth;
-        ui.heightFactor = ScreenHeight2/ScreenHeight;
+        ui.widthFactor = (double) ScreenWidth2 /ScreenWidth;
+        ui.heightFactor = (double) ScreenHeight2 /ScreenHeight;
 
         setFullScreen();
     }
@@ -143,21 +146,25 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawToTempScreen() {
-        //Layer 1
-        tileM.draw((Graphics2D) g2);
-        //Layer2
-        healthBar.draw((Graphics2D) g2);
-        ultimateBar.draw((Graphics2D) g2);
-        specialAttackBar.draw((Graphics2D) g2);
-        //Layer 3
-        player.draw((Graphics2D) g2);
-        ultimate.drawP1((Graphics2D) g2);
-        player2.draw((Graphics2D) g2);
-        ultimate.drawP2((Graphics2D) g2);
-        //Layer 4
-        projectiles.draw((Graphics2D) g2);
-        //Layer 5
-        ui.draw((Graphics2D) g2);
+        if(gameState == titleState) {
+            title.draw((Graphics2D) g2);
+        } else {
+            //Layer 1
+            tileM.draw((Graphics2D) g2);
+            //Layer2
+            healthBar.draw((Graphics2D) g2);
+            ultimateBar.draw((Graphics2D) g2);
+            specialAttackBar.draw((Graphics2D) g2);
+            //Layer 3
+            player.draw((Graphics2D) g2);
+            ultimate.drawP1((Graphics2D) g2);
+            player2.draw((Graphics2D) g2);
+            ultimate.drawP2((Graphics2D) g2);
+            //Layer 4
+            projectiles.draw((Graphics2D) g2);
+            //Layer 5
+            ui.draw((Graphics2D) g2);
+        }
     }
 
     public void drawToScreen() {

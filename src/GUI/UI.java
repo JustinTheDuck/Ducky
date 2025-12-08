@@ -8,15 +8,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class UI {
-    Controls controls;
+    public Controls controls;
     Settings settings;
 
     public Boolean pressed = false;
 
-    Font arial_80, TimesNewRoman;
+    Font arial_80;
+    public Font TimesNewRoman;
     GamePanel gp;
     KeyHandler keyH;
-    int x, y;
+    public int x, y;
     final int yOffset = 5;
     int textLength, textHeight;
     int width, height;

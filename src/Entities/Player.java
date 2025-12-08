@@ -132,7 +132,7 @@ public class Player extends Entity{
         }
    }
 
-   //draw player
+   //drawTitleScreen player
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         //Change picture based on direction
