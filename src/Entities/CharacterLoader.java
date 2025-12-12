@@ -77,14 +77,10 @@ public class CharacterLoader {
     }
 
     public static BufferedImage getImage(String filePath) {
-        try {
-            image = ImageIO.read((CharacterLoader.class.getClassLoader().getResourceAsStream("player/" + filePath + ".png")));
-        } catch (Exception e) {
+        try {image = ImageIO.read((CharacterLoader.class.getClassLoader().getResourceAsStream("player/" + filePath + ".png")));}
+        catch (Exception e) {
             try {image = ImageIO.read(Objects.requireNonNull(CharacterLoader.class.getClassLoader().getResourceAsStream("menu/error/Missing_Tile.png"))); System.out.println("Error: " + filePath + " not found");} catch (
-                    IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
+                    IOException ex) {throw new RuntimeException(ex);}}
         return image;
     }
 }
