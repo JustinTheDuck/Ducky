@@ -136,6 +136,12 @@ public class Title {
         text = "Aidan Lee";
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         g2.drawString(text,gp.ui.x - textLength / 2, 2 * creditSpacing + spacing + 5 + 6 * textHeight);
+        text = "Self Proclaimed #1 Kirby Player:";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text,gp.ui.x - textLength / 2, 3 * creditSpacing + spacing + 5 + 7 * textHeight);
+        text = "The Big Q";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text,gp.ui.x - textLength / 2, 3 * creditSpacing + spacing + 5 + 8 * textHeight);
     }
 
     private BufferedImage getImage(String filePath) {

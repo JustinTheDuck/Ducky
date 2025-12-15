@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         ui.widthFactor = (double) ScreenWidth2 /ScreenWidth;
         ui.heightFactor = (double) ScreenHeight2 /ScreenHeight;
 
-        //setFullScreen();
+        setFullScreen();
     }
 
     public void setFullScreen() {
