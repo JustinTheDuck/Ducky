@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Title {
     GamePanel gp;
 
-    CharacterSelection characterSelection;
+    public CharacterSelection characterSelection;
 
     Font ComicSans;
     String text;
@@ -66,7 +66,7 @@ public class Title {
 
         g2.setFont(gp.ui.TimesNewRoman);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 50F));
-        text = "Start";
+        text = "Smash";
         textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
         smashHitbox[0] = (int) ((gp.ui.x - (double) textLength /2) * gp.ui.widthFactor);

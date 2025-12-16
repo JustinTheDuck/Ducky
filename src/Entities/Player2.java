@@ -17,7 +17,6 @@ public class Player2 extends Entity {
         ultimateProgress = 0;
 
         setDefaultValues();
-        getPlayerImages();
     }
 
     public void setDefaultValues() {
@@ -34,11 +33,15 @@ public class Player2 extends Entity {
         solidArea.y = 0;
         solidArea.width = 32;
         solidArea.height = 32;
+    }
+
+    public void startGame() {
         xSpeed = CharacterLoader.getCharacterSpeed(Character);
         maxHealth = CharacterLoader.getCharacterMaxHealth(Character);
         ultimateDELAY = CharacterLoader.getCharacterUltimateDelay(Character);
         basicCOOLDOWN = CharacterLoader.getBasicCOODOWN(Character);
         health = maxHealth;
+        getPlayerImages();
     }
 
     public void getPlayerImages() {

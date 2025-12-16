@@ -1,5 +1,6 @@
 package GUI;
 
+import Entities.Hitboxes;
 import Main.GamePanel;
 import Main.KeyHandler;
 
@@ -9,7 +10,8 @@ import java.io.InputStream;
 
 public class UI {
     public Controls controls;
-    Settings settings;
+    public Hitboxes hitboxes;
+    public Settings settings;
 
     public Boolean pressed = false;
 
@@ -51,6 +53,7 @@ public class UI {
 
         controls = new Controls(this.gp);
         settings = new Settings(this.gp);
+        hitboxes = new Hitboxes(this.gp);
     }
 
     public void draw(Graphics2D g2) {

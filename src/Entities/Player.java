@@ -24,7 +24,6 @@ public class Player extends Entity{
         ultimateProgress = 0;
 
         setDefaultValues();
-        getPlayerImages();
     }
 
     public void setDefaultValues(){
@@ -37,12 +36,16 @@ public class Player extends Entity{
         upDown = "null";
         touchingX = false;
         touchingY = false;
+        ultimateCounting = true;
+    }
+
+    public void startGame() {
         xSpeed = CharacterLoader.getCharacterSpeed(Character);
         maxHealth = CharacterLoader.getCharacterMaxHealth(Character);
         ultimateDELAY = CharacterLoader.getCharacterUltimateDelay(Character);
         basicCOOLDOWN = CharacterLoader.getBasicCOODOWN(Character);
         health = maxHealth;
-        ultimateCounting = true;
+        getPlayerImages();
     }
 
     public void getPlayerImages() {

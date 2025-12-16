@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         ui.widthFactor = (double) ScreenWidth2 /ScreenWidth;
         ui.heightFactor = (double) ScreenHeight2 /ScreenHeight;
 
-        setFullScreen();
+        //setFullScreen();
     }
 
     public void setFullScreen() {
@@ -135,7 +135,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(gameState == playState) {
+        if(gameState == playState && !title.characterSelection.starting) {
             //Update Character position
             player.update();
             player2.update();
@@ -149,21 +149,23 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == titleState) {
             title.draw((Graphics2D) g2);
         } else {
-            //Layer 1
             tileM.draw((Graphics2D) g2);
-            //Layer2
+
             healthBar.draw((Graphics2D) g2);
             ultimateBar.draw((Graphics2D) g2);
             specialAttackBar.draw((Graphics2D) g2);
-            //Layer 3
+
             player.draw((Graphics2D) g2);
             ultimate.drawP1((Graphics2D) g2);
             player2.draw((Graphics2D) g2);
             ultimate.drawP2((Graphics2D) g2);
-            //Layer 4
+
             projectiles.draw((Graphics2D) g2);
-            //Layer 5
+
+            if(ui.settings.hitboxes) {ui.hitboxes.drawHitboxes((Graphics2D) g2);}
+
             ui.draw((Graphics2D) g2);
+            if(title.characterSelection.starting && gameState == playState)  {title.characterSelection.draw((Graphics2D) g2);}
         }
     }
 

@@ -12,7 +12,7 @@ public class Settings {
     GamePanel gp;
 
     BufferedImage image;
-    BufferedImage option_no, option_yes, option;
+    BufferedImage option_no, option_yes, option, option2;
 
     String text;
     int textLength, textHeight;
@@ -21,6 +21,8 @@ public class Settings {
     final int minScreen = 2;
     int ScreenSize = fullScreen;
     int COUNTER = 0;
+
+    public boolean hitboxes;
 
     int[] optionHitbox = new int[4];
     public Settings(GamePanel gp) {
@@ -77,7 +79,23 @@ public class Settings {
         if(ScreenSize == fullScreen) {option = option_yes;}
         else if(ScreenSize == minScreen) {option = option_no;}
         g2.drawString(text, gp.ui.x - textLength / 2 + textHeight / 2 + xOffset / 2, gp.ScreenHeight - textHeight - gp.ui.yOffset);
-        g2.drawImage(option, gp.ui.x - textHeight / 2- textLength / 2 - xOffset / 2, gp.ScreenHeight - 2 * textHeight - gp.ui.yOffset + 10, textHeight, textHeight, null);
+        g2.drawImage(option, gp.ui.x - textHeight / 2 - textLength / 2 - xOffset / 2, gp.ScreenHeight - 2 * textHeight - gp.ui.yOffset + 10, textHeight, textHeight, null);
 
+        if(hitboxes) {option2 = option_yes;}
+        else {option2 = option_no;}
+        optionHitbox[0] = (int) ((gp.ui.x - textHeight / 2 - textLength / 2 - xOffset / 2) * gp.ui.widthFactor);
+        optionHitbox[1] = (int) ((gp.ui.x - textHeight / 2 - textLength / 2 - xOffset / 2 + textHeight) * gp.ui.widthFactor);
+        optionHitbox[2] = (int) ((gp.ScreenHeight - 7 * textHeight / 2- gp.ui.yOffset + 10) * gp.ui.heightFactor);
+        optionHitbox[3] = (int) ((gp.ScreenHeight - 7 * textHeight / 2 - gp.ui.yOffset + 10 + textHeight) * gp.ui.heightFactor);
+        g2.drawImage(option2, gp.ui.x - textHeight / 2 - textLength / 2 - xOffset / 2, gp.ScreenHeight - 7 * textHeight / 2 - gp.ui.yOffset + 10, textHeight, textHeight, null);
+        if(COUNTER > 10 && gp.mouseH.pressed && gp.mouseH.x >= optionHitbox[0] && gp.mouseH.x <= optionHitbox[1] && gp.mouseH.y >= optionHitbox[2] && gp.mouseH.y <= optionHitbox[3]) {
+            COUNTER = 0;
+            if(hitboxes) {hitboxes = false;}
+            else {hitboxes = true;}
+        }
+        text = "Hitboxes";
+        textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text, gp.ui.x - textLength / 2 + textHeight / 2 + xOffset / 2, gp.ScreenHeight - 5 * textHeight / 2 - gp.ui.yOffset);
     }
 }

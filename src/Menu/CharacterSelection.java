@@ -43,7 +43,12 @@ public class CharacterSelection {
     int delay = 0;
     boolean player1Selected = false, player2Selected = false;
     int xLocation1 = 0, yLocation1 = 0, xLocation2 = -67, yLocation2 = 67;
+    String character1, character2;
     final int imageSize = 192;
+
+    int startDelay;
+    int COUNTDOWN;
+    public boolean starting = false;
 
     public CharacterSelection(GamePanel gp) {
         this.gp = gp;
@@ -116,6 +121,7 @@ public class CharacterSelection {
                         yLocation2 = gp.TileSize + offset + (width + characterOffset) * a;
                         currentPlayerSelection = 3; delay = 0;
                         player2Image = characterImages[b][a];
+                        character2 = characterNames[b][a];
                     }
                     if(currentPlayerSelection == 1 && delay >= 10) {
                         player1Selected = true;
@@ -123,6 +129,7 @@ public class CharacterSelection {
                         yLocation1 = gp.TileSize + offset + (width + characterOffset) * a;
                         currentPlayerSelection = 2; delay = 0;
                         player1Image = characterImages[b][a];
+                        character1 = characterNames[b][a];
                     }
                 }
             }
@@ -156,7 +163,7 @@ public class CharacterSelection {
             gradient = new GradientPaint(gp.ui.x - textLength / 2, gp.ui.y + textHeight / 2 - 5, new Color(255, 85, 7), gp.ui.x + textLength / 2, gp.ui.y + textHeight / 2 - 5, new Color(254, 254, 77));
             g2.setPaint(gradient);
             g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y + textHeight / 2 - 13 - 3 * borderSize / 4);
-            if(gp.mouseH.x > startHitbox[0] && gp.mouseH.x < startHitbox[1] && gp.mouseH.y > startHitbox[2] && gp.mouseH.y < startHitbox[3] && gp.mouseH.pressed) {gp.gameState = gp.playState;}
+            if(gp.mouseH.x > startHitbox[0] && gp.mouseH.x < startHitbox[1] && gp.mouseH.y > startHitbox[2] && gp.mouseH.y < startHitbox[3] && gp.mouseH.pressed) {gp.gameState = gp.playState; gp.player.Character = character1; gp.player2.Character = character2; startGame();}
         }
 
         g2.setColor(Color.BLACK);
@@ -271,6 +278,29 @@ public class CharacterSelection {
             textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             g2.drawString(text, x + width / 2 - textLength / 2, y + width / 2 + textHeight / 2);
         }
+    }
+
+    private void startGame() {
+        starting = true;
+        gp.player.startGame();
+        gp.player2.startGame();
+        COUNTDOWN = 3;
+    }
+
+    public void draw(Graphics2D g2) {
+        g2.setFont(gp.ui.TimesNewRoman);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 60F));
+        g2.setColor(Color.WHITE);
+        startDelay++;
+        text = Integer.toString(COUNTDOWN);
+        textHeight = (int) g2.getFontMetrics().getStringBounds(text, g2).getHeight();
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawString(text, gp.ui.x - textLength / 2, gp.ui.y + textHeight / 2 - 13);
+        if(startDelay >= 60) {
+            COUNTDOWN--;
+            startDelay = 0;
+        }
+        if(COUNTDOWN <= 0) {starting = false;}
     }
 
     private BufferedImage getImage(String filePath) {
