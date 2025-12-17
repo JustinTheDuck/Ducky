@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setFullScreen() {
+        ui.settings.fullScreen = true;
         //Get Device Data
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
@@ -97,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void restoreOriginalSize() {
+        ui.settings.fullScreen = false;
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(null);

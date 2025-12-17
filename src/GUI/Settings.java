@@ -17,11 +17,9 @@ public class Settings {
     String text;
     int textLength, textHeight;
     final int xOffset = 40;
-    final int fullScreen = 1;
-    final int minScreen = 2;
-    int ScreenSize = fullScreen;
     int COUNTER = 0;
 
+    public boolean fullScreen;
     public boolean hitboxes;
 
     int[] optionHitbox = new int[4];
@@ -72,12 +70,12 @@ public class Settings {
         COUNTER++;
         if(COUNTER > 10 && gp.mouseH.pressed && gp.mouseH.x >= optionHitbox[0] && gp.mouseH.x <= optionHitbox[1] && gp.mouseH.y >= optionHitbox[2] && gp.mouseH.y <= optionHitbox[3]) {
             COUNTER = 0;
-            if(ScreenSize == fullScreen) {ScreenSize = minScreen; gp.restoreOriginalSize();}
-            else if(ScreenSize == minScreen) {ScreenSize = fullScreen; gp.setFullScreen();}
+            if(fullScreen) {gp.restoreOriginalSize();}
+            else if(!fullScreen) {gp.setFullScreen();}
         }
 
-        if(ScreenSize == fullScreen) {option = option_yes;}
-        else if(ScreenSize == minScreen) {option = option_no;}
+        if(fullScreen) {option = option_yes;}
+        else if(!fullScreen) {option = option_no;}
         g2.drawString(text, gp.ui.x - textLength / 2 + textHeight / 2 + xOffset / 2, gp.ScreenHeight - textHeight - gp.ui.yOffset);
         g2.drawImage(option, gp.ui.x - textHeight / 2 - textLength / 2 - xOffset / 2, gp.ScreenHeight - 2 * textHeight - gp.ui.yOffset + 10, textHeight, textHeight, null);
 
