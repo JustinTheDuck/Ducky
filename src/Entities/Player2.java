@@ -144,6 +144,10 @@ public class Player2 extends Entity {
             if (direction.equals("right")) {image = downRight;}
             if (direction.equals("left")) {image = downLeft;}
         }
-        g2.drawImage(image, x, y, gp.TileSize, gp.TileSize, null);
-    }
+        if(!gp.specialAttackBar.hit2) {
+            g2.drawImage(image, x, y, gp.TileSize, gp.TileSize, null);
+        } else {
+            attacked++;
+            if(attacked % 12 >= 6) {g2.drawImage(image, x, y, gp.TileSize, gp.TileSize, null);}
+        }    }
 }

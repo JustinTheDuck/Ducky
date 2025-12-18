@@ -43,6 +43,7 @@ public class Entity {
     //animations
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public int attacked = 0;
 
     //Projectile data
     public String name;

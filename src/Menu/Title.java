@@ -45,6 +45,7 @@ public class Title {
         characterSelection = new CharacterSelection(this.gp);
         return_arrow = getImage("return/Return_Arrow");
         return_arrowHover = getImage("return/Return_ArrowHover");
+        //gp.sound.playMusic(0);
     }
 
     public void draw(Graphics2D g2) {

@@ -2,11 +2,8 @@ package Main;
 
 import Entities.Player;
 import Entities.Player2;
-import GUI.SpecialAttackBar;
-import GUI.UI;
-import GUI.UltimateBar;
+import GUI.*;
 import Objects.Projectiles;
-import GUI.HealthBar;
 
 import Ultimate.Ultimate;
 import Tile.TileManager;
@@ -44,14 +41,21 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
 
+    //For Entity use
     public Player player = new Player(this, keyH);
     public Player2 player2 = new Player2(this, keyH);
     public Ultimate ultimate = new Ultimate(this, keyH);
     public Projectiles projectiles = new Projectiles(this);
+
+    //For UI use
     public HealthBar healthBar = new HealthBar(this);
     public UltimateBar ultimateBar = new UltimateBar(this);
     public SpecialAttackBar specialAttackBar = new SpecialAttackBar(this);
+    public MatchTimer matchTimer = new MatchTimer(this);
     public UI ui = new UI(this, keyH);
+
+    //For Menu
+    public Sound sound = new Sound();
     public Title title = new Title(this);
 
     //GAME STATE
@@ -156,6 +160,7 @@ public class GamePanel extends JPanel implements Runnable {
             healthBar.draw((Graphics2D) g2);
             ultimateBar.draw((Graphics2D) g2);
             specialAttackBar.draw((Graphics2D) g2);
+            matchTimer.draw((Graphics2D) g2);
 
             player.draw((Graphics2D) g2);
             ultimate.drawP1((Graphics2D) g2);

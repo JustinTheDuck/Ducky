@@ -1,7 +1,6 @@
 package GUI;
 
 import Main.GamePanel;
-import Ultimate.GuyUltimate;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,6 +20,13 @@ public class SpecialAttackBar {
     final int yLocal = 2 * yLocation + ySize;
 
     public int percent;
+
+    public boolean hit = false;
+    public boolean hit2 = false;
+
+    int lastHealth, lastHealth2;
+    int COUNTER, COUNTER2;
+    final int hitFrames = 10;
 
     public SpecialAttackBar(GamePanel gp) {
         this.gp = gp;
@@ -50,6 +56,13 @@ public class SpecialAttackBar {
     }
 
     public void draw(Graphics2D g2){
+        if (!hit && lastHealth != gp.player.health) {hit = true; COUNTER = 0;}
+        if (hit) {COUNTER++; if (COUNTER >= hitFrames) {hit = false;}}
+        if (!hit2 && lastHealth2 != gp.player2.health) {hit2 = true;COUNTER2 = 0;}
+        if (hit2) {COUNTER2++;if (COUNTER2 >= hitFrames) {hit2 = false;}}
+        lastHealth  = gp.player.health;
+        lastHealth2 = gp.player2.health;
+
         for(int i = 0; i < attacks.size(); i++) {
             if(i % 14 == 0){
                 percent = 100 * (int) attacks.get(i+8)/ (int) attacks.get(i+11);
