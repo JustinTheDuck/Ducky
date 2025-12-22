@@ -23,13 +23,18 @@ public class GuyUltimate {
     final int meatballSpawnCondition = 5;
 
     //Meth data
+    public int currentTime, currentTime2;
+    public final int COOLDOWN = 180;
+    public boolean special, special2;
     static int maxLife = 120;
-    static int basicCounter, basicCounter2;
+    static int specialCounter, specialCounter2;
     int x, y, x2, y2;
     int[] methHitbox = new int[4];
     int[] methHitbox2 = new int[4];
-    public int methDAMAGE = 5;
+    public int methDAMAGE = 2;
     Rectangle MethHitbox = new Rectangle(0, 0, 48, 48);
+    
+    //Basic Data
 
     public GuyUltimate(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -43,13 +48,14 @@ public class GuyUltimate {
 
     public void basicAttack(String player) {
         if(player.equals("player")) {
-            Ultimate.playerInfo[0] = true; basicCounter = 0;
+            special = true; specialCounter = 0;
             x = gp.player.x; y = gp.player.y;
             methHitbox[0] = x; methHitbox[1] = x + MethHitbox.width; methHitbox[2] = y; methHitbox[3] = y + MethHitbox.height;}
         if(player.equals("player2")) {
-            Ultimate.player2Info[0] = true; basicCounter2 = 0;
+            special2 = true; specialCounter2 = 0;
             x2 = gp.player2.x; y2 = gp.player2.y;
             methHitbox2[0] = x2; methHitbox2[1] = x2 + MethHitbox.width; methHitbox2[2] = y2; methHitbox2[3] = y2 + MethHitbox.height;}
+        gp.sound.playSFX("meth");
     }
 
     public void ultimateAttack(String player) {
@@ -58,13 +64,11 @@ public class GuyUltimate {
     }
 
     public void update() {
+        if(!special && currentTime < COOLDOWN) {currentTime++;}
+        if(!special2 && currentTime2 < COOLDOWN) {currentTime2++;}
+
         if(gp.player.Character.equals("Guy")) {gp.player.alive = true;}
         if(gp.player2.Character.equals("Guy")) {gp.player2.alive = true;}
-        if (Ultimate.playerInfo[0]) {
-            basicCounter++;
-            if (Ultimate.player2Hitbox[1] >= methHitbox[0] && Ultimate.player2Hitbox[0] <= methHitbox[1] && Ultimate.player2Hitbox[3] >= methHitbox[2] && Ultimate.player2Hitbox[2] <= methHitbox[3]) {gp.player2.health -= methDAMAGE;}
-            if (maxLife <= basicCounter) {Ultimate.playerInfo[0] = false; gp.player.basicCOUNTER = 0;}
-        }
         if (Ultimate.playerInfo[1]) {
             ultimateDecrement++;
             if (ultimateDecrement >= ultimateDecrementCondition) {
@@ -77,19 +81,24 @@ public class GuyUltimate {
                 meatball2++; ultimateDecrement2 = 0; gp.player2.ultimateProgress--;
                 if (meatball2 >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player2.x, gp.player2.y, "right", "player2"); meatball2 = 0;}
                 if (gp.player2.ultimateProgress <= 0) {gp.player2.ultimateCounting = true; Ultimate.player2Info[1] = false;}}}
-        if (Ultimate.player2Info[0]) {
-            basicCounter2++;
+        if (special2) {
+            specialCounter2++;
             if (Ultimate.playerHitbox[1] >= methHitbox2[0] && Ultimate.playerHitbox[0] <= methHitbox2[1] && Ultimate.playerHitbox[3] >= methHitbox2[2] && Ultimate.playerHitbox[2] <= methHitbox2[3]) {gp.player.health -= methDAMAGE;}
-            if (maxLife <= basicCounter2) {Ultimate.player2Info[0] = false; gp.player2.basicCOUNTER = 0;}
+            if (maxLife <= specialCounter2) {special2 = false; currentTime2 = 0;}
+        }
+        if (special) {
+            specialCounter++;
+            if (Ultimate.player2Hitbox[1] >= methHitbox[0] && Ultimate.player2Hitbox[0] <= methHitbox[1] && Ultimate.player2Hitbox[3] >= methHitbox[2] && Ultimate.player2Hitbox[2] <= methHitbox[3]) {gp.player2.health -= methDAMAGE;}
+            if (maxLife <= specialCounter) {special = false; currentTime = 0;}
         }
     }
 
     public void drawP1(Graphics2D g2) {
-        if(Ultimate.playerInfo[0]) {g2.drawImage(meth, x, y, gp.TileSize, gp.TileSize, null);}
+        if(special) {g2.drawImage(meth, x, y, gp.TileSize, gp.TileSize, null);}
     }
 
     public void drawP2(Graphics2D g2) {
-        if(Ultimate.player2Info[0]) {g2.drawImage(meth, x2, y2, gp.TileSize, gp.TileSize, null);}
+        if(special2) {g2.drawImage(meth, x2, y2, gp.TileSize, gp.TileSize, null);}
     }
 
     public BufferedImage getImage(String filePath) {

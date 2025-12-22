@@ -68,7 +68,7 @@ public class Ultimate {
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.downPressed) {zombieUltimate.ultimateAttack("player");}
                 break;
             case "Guy":
-                if (!playerInfo[0] && gp.player.basicCOOLDOWN <= gp.player.basicCOUNTER && keyH.basicPressed) {guyUltimate.basicAttack("player");}
+                if (!guyUltimate.special && keyH.basicPressed && guyUltimate.currentTime >= guyUltimate.COOLDOWN) {guyUltimate.basicAttack("player");}
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.spclPressed) {guyUltimate.ultimateAttack("player");}
                 break;
         }
@@ -85,7 +85,7 @@ public class Ultimate {
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.downPressed2) {zombieUltimate.ultimateAttack("player2");}
                 break;
             case "Guy":
-                if (!player2Info[0] && gp.player2.basicCOOLDOWN <= gp.player2.basicCOUNTER && keyH.basicPressed2) {guyUltimate.basicAttack("player2");}
+                if (!guyUltimate.special2 && keyH.basicPressed2 && guyUltimate.currentTime2 >= guyUltimate.COOLDOWN) {guyUltimate.basicAttack("player2");}
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.spclPressed2) {guyUltimate.ultimateAttack("player2");}
                 break;
         }

@@ -14,6 +14,13 @@ public class HealthBar {
     GamePanel gp;
     BufferedImage image, healthBarRight, healthEmpty, healthFull, healthIndicatorRight, healthBarLeft, healthIndicatorLeft;
 
+    int lastHealth, lastHealth2;
+    int COUNTER, COUNTER2;
+    final int hitFrames = 10;
+
+    public boolean hit = false;
+    public boolean hit2 = false;
+
     //Calls this instance of gp
     public HealthBar(GamePanel gp) {
         this.gp = gp;
@@ -68,6 +75,12 @@ public class HealthBar {
 
     //Draw
     public void draw(Graphics2D g2){
+        if (!hit && lastHealth != gp.player.health) {hit = true; COUNTER = 0; gp.player.attacked = 0;}
+        if (hit) {COUNTER++; if (COUNTER >= hitFrames) {hit = false;}}
+        if (!hit2 && lastHealth2 != gp.player2.health) {hit2 = true;COUNTER2 = 0; gp.player.attacked = 0;}
+        if (hit2) {COUNTER2++;if (COUNTER2 >= hitFrames) {hit2 = false;}}
+        lastHealth  = gp.player.health;
+        lastHealth2 = gp.player2.health;
         player1Health(g2);
         player2Health(g2);
     }

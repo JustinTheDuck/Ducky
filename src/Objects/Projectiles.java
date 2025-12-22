@@ -56,17 +56,18 @@ public class Projectiles extends Entity {
     public void getCharacter(String character, int x, int y, String direction, String user) {
         switch(character){
             case"Duck":
-                set(x, y, direction, true, user, "fireball");
+                set(x, y, direction, true, user, "fireball"); gp.sound.playSFX("fireball");
                 break;
             case"Rice":
-                if(!Ultimate.playerInfo[1] && user.equals("player")) {set(x, y, direction, true, user, "rice_bag");}
+                if(!Ultimate.playerInfo[1] && user.equals("player")) {set(x, y, direction, true, user, "rice_bag"); gp.sound.playSFX("rice_bag");}
                 if(Ultimate.playerInfo[1] && user.equals("player")) {set(x, y, direction, true, user, "slash");}
-                if(!Ultimate.player2Info[1] && user.equals("player2")) {set(x, y, direction, true, user, "rice_bag");}
+                if(!Ultimate.player2Info[1] && user.equals("player2")) {set(x, y, direction, true, user, "rice_bag"); gp.sound.playSFX("rice_bag");}
                 if(Ultimate.player2Info[1] && user.equals("player2")) {set(x, y, direction, true, user, "slash");}
                 break;
             case "Zombie":
                 if(direction.equals("right")) {set(x, y - 50, direction, true, user, "fart");}
                 if(direction.equals("left")) {set(x - 60, y - 50, direction, true, user, "fart");}
+                gp.sound.playSFX("fart");
                 break;
             case "Guy":
                 set(x, y, direction, true, user, "meatball");

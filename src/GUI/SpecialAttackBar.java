@@ -21,13 +21,6 @@ public class SpecialAttackBar {
 
     public int percent;
 
-    public boolean hit = false;
-    public boolean hit2 = false;
-
-    int lastHealth, lastHealth2;
-    int COUNTER, COUNTER2;
-    final int hitFrames = 10;
-
     public SpecialAttackBar(GamePanel gp) {
         this.gp = gp;
         Images();
@@ -55,16 +48,10 @@ public class SpecialAttackBar {
         spclBarLeft_4 = getImage("Left_4");
     }
 
-    public void draw(Graphics2D g2){
-        if (!hit && lastHealth != gp.player.health) {hit = true; COUNTER = 0;}
-        if (hit) {COUNTER++; if (COUNTER >= hitFrames) {hit = false;}}
-        if (!hit2 && lastHealth2 != gp.player2.health) {hit2 = true;COUNTER2 = 0;}
-        if (hit2) {COUNTER2++;if (COUNTER2 >= hitFrames) {hit2 = false;}}
-        lastHealth  = gp.player.health;
-        lastHealth2 = gp.player2.health;
-
+    public void draw(Graphics2D g2) {
         for(int i = 0; i < attacks.size(); i++) {
             if(i % 14 == 0){
+                if(attacks.size() <= 10) {break;}
                 percent = 100 * (int) attacks.get(i+8)/ (int) attacks.get(i+11);
                 if(attacks.get(i + 6) == "player"){
                     if(percent >= 75) {g2.drawImage(spclBarRight_0, xLocation, yLocal, xSize/2, ySize/2, null);}
@@ -81,7 +68,7 @@ public class SpecialAttackBar {
             }
         }
         if(gp.player.Character.equals("Guy")) {
-            percent = 100 * (gp.player.basicCOOLDOWN - gp.player.basicCOUNTER) / gp.player.basicCOOLDOWN;
+            percent = 100 * (gp.ultimate.guyUltimate.COOLDOWN - gp.ultimate.guyUltimate.currentTime) / gp.ultimate.guyUltimate.COOLDOWN;
             if(percent >= 75) {g2.drawImage(spclBarRight_0, xLocation, yLocal, xSize/2, ySize/2, null);}
             if(percent < 75 && percent >= 50) {g2.drawImage(spclBarRight_1, xLocation, yLocal, xSize/2, ySize/2, null);}
             if(percent < 50 && percent >= 25) {g2.drawImage(spclBarRight_2, xLocation, yLocal, xSize/2, ySize/2, null);}
@@ -89,7 +76,7 @@ public class SpecialAttackBar {
             if(percent <= 0) {g2.drawImage(spclBarRight_4, xLocation, yLocal, xSize/2, ySize/2, null);}
         }
         if(gp.player2.Character.equals("Guy")) {
-            percent = 100 * (gp.player2.basicCOOLDOWN - gp.player2.basicCOUNTER) / gp.player2.basicCOOLDOWN;
+            percent = 100 * (gp.ultimate.guyUltimate.COOLDOWN - gp.ultimate.guyUltimate.currentTime2) / gp.ultimate.guyUltimate.COOLDOWN;
             if(percent >= 75) {g2.drawImage(spclBarLeft_0, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
             if(percent < 75 && percent >= 50) {g2.drawImage(spclBarLeft_1, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}
             if(percent < 50 && percent >= 25) {g2.drawImage(spclBarLeft_2, gp.ScreenWidth - xLocation - xSize/2, yLocal, xSize/2, ySize/2, null);}

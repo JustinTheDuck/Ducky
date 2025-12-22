@@ -32,5 +32,11 @@ public class Hitboxes {
         g2.fillRect(gp.player2.x + gp.player2.solidArea.x,gp.player2.y + gp.player2.solidArea.y, borderSize, gp.player2.solidArea.height);
         g2.fillRect(gp.player2.x + gp.player2.solidArea.x + gp.player2.solidArea.width - borderSize, gp.player2.y + gp.player2.solidArea.y, borderSize, gp.player2.solidArea.height);
         g2.fillRect(gp.player2.x + gp.player2.solidArea.x, gp.player2.y + 2 * gp.player2.solidArea.y + gp.player2.solidArea.height - borderSize,gp.player2.solidArea.width, borderSize);
+        if(gp.player.Character.equals("Guy")) {
+            g2.fillRect(gp.player.x + gp.player.solidArea.x, gp.player.y + gp.player.solidArea.y, gp.player.solidArea.width, borderSize);
+            g2.fillRect(gp.player.x + gp.player.solidArea.x,gp.player.y + gp.player.solidArea.y, borderSize, gp.player.solidArea.height);
+            g2.fillRect(gp.player.x + gp.player.solidArea.x + gp.player.solidArea.width - borderSize, gp.player.y + gp.player.solidArea.y, borderSize, gp.player.solidArea.height);
+            g2.fillRect(gp.player.x + gp.player.solidArea.x, gp.player.y + 2 * gp.player.solidArea.y + gp.player.solidArea.height - borderSize,gp.player.solidArea.width, borderSize);
+        }
     }
 }

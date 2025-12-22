@@ -144,7 +144,7 @@ public class Player2 extends Entity {
             if (direction.equals("right")) {image = downRight;}
             if (direction.equals("left")) {image = downLeft;}
         }
-        if(!gp.specialAttackBar.hit2) {
+        if(!gp.healthBar.hit2) {
             g2.drawImage(image, x, y, gp.TileSize, gp.TileSize, null);
         } else {
             attacked++;

@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         ui.widthFactor = (double) ScreenWidth2 /ScreenWidth;
         ui.heightFactor = (double) ScreenHeight2 /ScreenHeight;
 
+        sound.playMusic();
         //setFullScreen();
     }
 
@@ -141,6 +142,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        if(sound.music != null) {if (gameState == titleState && !sound.music.isRunning()) {sound.playMusic();}}
         if(gameState == playState && !title.characterSelection.starting) {
             //Update Character position
             player.update();
