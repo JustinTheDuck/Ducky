@@ -59,40 +59,44 @@ public class Ultimate {
             case "Duck":
                 if (!playerInfo[0] && gp.player.basicCOOLDOWN <= gp.player.basicCOUNTER && keyH.basicPressed) {duckUltimate.basicAttack("player");}
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.downPressed) {duckUltimate.ultimateAttack("player");}
+                duckUltimate.updateP1();
                 break;
             case "Rice":
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.basicPressed) {riceUltimate.ultimateAttack("player");}
+                riceUltimate.updateP1();
                 break;
             case "Zombie":
                 if (!playerInfo[0] && gp.player.basicCOOLDOWN <= gp.player.basicCOUNTER && keyH.basicPressed) {zombieUltimate.basicAttack("player");}
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.downPressed) {zombieUltimate.ultimateAttack("player");}
+                zombieUltimate.updateP1();
                 break;
             case "Guy":
                 if (!guyUltimate.special && keyH.basicPressed && guyUltimate.currentTime >= guyUltimate.COOLDOWN) {guyUltimate.basicAttack("player");}
                 if (!playerInfo[1] && gp.player.ultimateProgress == 100 && keyH.spclPressed) {guyUltimate.ultimateAttack("player");}
+                guyUltimate.updateP1();
                 break;
         }
         switch (gp.player2.Character) {
             case "Duck":
                 if (!player2Info[0] && gp.player2.basicCOOLDOWN <= gp.player2.basicCOUNTER && keyH.basicPressed2) {duckUltimate.basicAttack("player2");}
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.downPressed2) {duckUltimate.ultimateAttack("player2");}
+                duckUltimate.updateP2();
                 break;
             case "Rice":
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.basicPressed2) {riceUltimate.ultimateAttack("player2");}
+                riceUltimate.updateP2();
                 break;
             case "Zombie":
                 if (!player2Info[0] && gp.player2.basicCOOLDOWN <= gp.player2.basicCOUNTER && keyH.basicPressed2) {zombieUltimate.basicAttack("player2");}
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.downPressed2) {zombieUltimate.ultimateAttack("player2");}
+                zombieUltimate.updateP2();
                 break;
             case "Guy":
                 if (!guyUltimate.special2 && keyH.basicPressed2 && guyUltimate.currentTime2 >= guyUltimate.COOLDOWN) {guyUltimate.basicAttack("player2");}
                 if (!player2Info[1] && gp.player2.ultimateProgress == 100 && keyH.spclPressed2) {guyUltimate.ultimateAttack("player2");}
+                guyUltimate.updateP2();
                 break;
         }
-        if (gp.player.Character.equals("Duck") || gp.player2.Character.equals("Duck")) {duckUltimate.update();}
-        if (gp.player.Character.equals("Rice") || gp.player2.Character.equals("Rice")) {riceUltimate.update();}
-        if (gp.player.Character.equals("Zombie") || gp.player2.Character.equals("Zombie")) {zombieUltimate.update();}
-        if (gp.player.Character.equals("Guy") || gp.player2.Character.equals("Guy")) {guyUltimate.update();}
     }
 
     public void drawP1(Graphics2D g2) {

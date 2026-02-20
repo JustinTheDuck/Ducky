@@ -63,33 +63,37 @@ public class GuyUltimate {
         if (player.equals("player2") && gp.player2.Character.equals("Guy")) {Ultimate.player2Info[1] = true; ultimateDecrement2 = 0; gp.player2.ultimateCounting = false;}
     }
 
-    public void update() {
+    public void updateP1() {
         if(!special && currentTime < COOLDOWN) {currentTime++;}
-        if(!special2 && currentTime2 < COOLDOWN) {currentTime2++;}
-
-        if(gp.player.Character.equals("Guy")) {gp.player.alive = true;}
-        if(gp.player2.Character.equals("Guy")) {gp.player2.alive = true;}
-        if (Ultimate.playerInfo[1] && gp.player.Character.equals("Guy")) {
+        gp.player.alive = true;
+        if (Ultimate.playerInfo[1]) {
             ultimateDecrement++;
             if (ultimateDecrement >= ultimateDecrementCondition) {
                 meatball++; ultimateDecrement = 0; gp.player.ultimateProgress--;
                 if (meatball >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player.x, gp.player.y, "right", "player"); meatball = 0;}
                 if (gp.player.ultimateProgress <= 0) {gp.player.ultimateCounting = true; Ultimate.playerInfo[1] = false;}}}
-        if (Ultimate.player2Info[1] && gp.player2.Character.equals("Guy")) {
-            ultimateDecrement2++;
-            if (ultimateDecrement2 >= ultimateDecrementCondition) {
-                meatball2++; ultimateDecrement2 = 0; gp.player2.ultimateProgress--;
-                if (meatball2 >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player2.x, gp.player2.y, "right", "player2"); meatball2 = 0;}
-                if (gp.player2.ultimateProgress <= 0) {gp.player2.ultimateCounting = true; Ultimate.player2Info[1] = false;}}}
+        if (special) {
+            specialCounter++;
+            if (Ultimate.player2Hitbox[1] >= methHitbox[0] && Ultimate.player2Hitbox[0] <= methHitbox[1] && Ultimate.player2Hitbox[3] >= methHitbox[2] && Ultimate.player2Hitbox[2] <= methHitbox[3]) {gp.player2.health -= methDAMAGE;}
+            if (maxLife <= specialCounter) {special = false; currentTime = 0;}
+        }
+    }
+
+    public void updateP2() {
+        if(!special2 && currentTime2 < COOLDOWN) {currentTime2++;}
+        gp.player2.alive = true;
         if (special2) {
             specialCounter2++;
             if (Ultimate.playerHitbox[1] >= methHitbox2[0] && Ultimate.playerHitbox[0] <= methHitbox2[1] && Ultimate.playerHitbox[3] >= methHitbox2[2] && Ultimate.playerHitbox[2] <= methHitbox2[3]) {gp.player.health -= methDAMAGE;}
             if (maxLife <= specialCounter2) {special2 = false; currentTime2 = 0;}
         }
-        if (special) {
-            specialCounter++;
-            if (Ultimate.player2Hitbox[1] >= methHitbox[0] && Ultimate.player2Hitbox[0] <= methHitbox[1] && Ultimate.player2Hitbox[3] >= methHitbox[2] && Ultimate.player2Hitbox[2] <= methHitbox[3]) {gp.player2.health -= methDAMAGE;}
-            if (maxLife <= specialCounter) {special = false; currentTime = 0;}
+        if (Ultimate.player2Info[1]) {
+            ultimateDecrement2++;
+            if (ultimateDecrement2 >= ultimateDecrementCondition) {
+                meatball2++; ultimateDecrement2 = 0; gp.player2.ultimateProgress--;
+                if (meatball2 >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player2.x, gp.player2.y, "right", "player2"); meatball2 = 0;}
+                if (gp.player2.ultimateProgress <= 0) {gp.player2.ultimateCounting = true; Ultimate.player2Info[1] = false;}
+            }
         }
     }
 
