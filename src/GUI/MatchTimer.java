@@ -22,6 +22,10 @@ public class MatchTimer {
     public MatchTimer(GamePanel gp) {
         this.gp = gp;
     }
+
+    public void reset() {
+        timeLeft = matchLength;
+    }
     public void draw(Graphics2D g2) {
         if(gp.gameState == gp.playState && !gp.title.characterSelection.starting) {
             COUNTER++;

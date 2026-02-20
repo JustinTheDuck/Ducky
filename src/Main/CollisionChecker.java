@@ -23,7 +23,7 @@ public class CollisionChecker {
         if (entityLeftCol >= 0 && entityRightCol < gp.maxScreenCol && entityBottomRow < gp.maxScreenRow && entityTopRow > 0) {
             switch (entity.direction) {
                 case "left":
-                    entityLeftCol = (entityLeftX) / gp.TileSize;
+                    entityLeftCol = (entityLeftX - entity.xSpeed) / gp.TileSize;
                     tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                     tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                     if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
@@ -33,7 +33,7 @@ public class CollisionChecker {
                     }
                     break;
                 case "right":
-                    entityRightCol = (entityRightX) / gp.TileSize;
+                    entityRightCol = (entityRightX + entity.xSpeed) / gp.TileSize;
                     tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                     tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
                     if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {

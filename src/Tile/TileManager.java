@@ -40,11 +40,11 @@ public class TileManager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/DirtBlock.png")));
             tile[2].collision = true;
-
+            //Stone
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/StoneBlock.png")));
             tile[3].collision = true;
-
+            //Ice
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tiles/IceBlock.png")));
             tile[4].collision = true;

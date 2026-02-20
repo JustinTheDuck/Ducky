@@ -14,6 +14,7 @@ public class Title {
     GamePanel gp;
 
     public CharacterSelection characterSelection;
+    public MapSelection mapSelection;
 
     Font ComicSans;
     String text;
@@ -28,8 +29,8 @@ public class Title {
 
     int currentMenuState = 1;
     final int titleState = 1;
-    final int characterState = 2;
-    final int mapState = 3;
+    final int mapState = 2;
+    final int characterState = 3;
     final int creditsState = 4;
 
     Color c;
@@ -43,6 +44,7 @@ public class Title {
         try {ComicSans = Font.createFont(Font.TRUETYPE_FONT, is);}
         catch (FontFormatException | IOException e) {e.printStackTrace();}
         characterSelection = new CharacterSelection(this.gp);
+        mapSelection = new MapSelection(this.gp);
         return_arrow = getImage("return/Return_Arrow");
         return_arrowHover = getImage("return/Return_ArrowHover");
         //gp.sound.playMusic(0);
@@ -52,7 +54,7 @@ public class Title {
         g2.setColor(Color.BLACK); g2.fillRect(0,0,gp.ScreenWidth, gp.ScreenHeight);
         if(currentMenuState == titleState) {drawTitleScreen(g2);}
         else if(currentMenuState == characterState) {characterSelection.drawCharacterSelection(g2);}
-        else if(currentMenuState == mapState) {drawMapSelection(g2);}
+        else if(currentMenuState == mapState) {mapSelection.drawMapSelection(g2);}
         else if(currentMenuState == creditsState) {drawCredits(g2);}
     }
 
@@ -76,7 +78,7 @@ public class Title {
         smashHitbox[3] = (int) ((gp.ui.y + (double) textHeight /2) * gp.ui.heightFactor);
         if(gp.mouseH.x > smashHitbox[0] && gp.mouseH.x < smashHitbox[1] && gp.mouseH.y > smashHitbox[2] && gp.mouseH.y < smashHitbox[3]) {
             c = new Color(247, 215, 109); g2.setColor(c);
-            if(gp.mouseH.pressed) {currentMenuState = characterState;}
+            if(gp.mouseH.pressed) {currentMenuState = mapState;}
         }
         else{g2.setColor(Color.WHITE);}
         g2.drawString(text, gp.ui.x - textLength/2, gp.ui.y + textHeight/2);
@@ -94,10 +96,6 @@ public class Title {
         }
         else{g2.setColor(Color.WHITE);}
         g2.drawString(text, gp.ui.x - textLength/2, gp.ui.y + 3 * textHeight/2);
-    }
-
-    public void drawMapSelection(Graphics2D g2) {
-
     }
 
     public void drawCredits(Graphics2D g2) {

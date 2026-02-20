@@ -176,7 +176,7 @@ public class ZombieUltimate {
             if(gp.player2.direction.equals("right") && gp.player2.upDown.equals("null")) {g2.drawImage(basicRight, gp.player2.x, gp.player2.y, gp.TileSize, gp.TileSize, null);}
             if(gp.player2.direction.equals("right") && gp.player2.upDown.equals("down")) {g2.drawImage(basicRightDown, gp.player2.x, gp.player2.y, gp.TileSize, gp.TileSize, null);}
         }
-        if(Ultimate.player2Info[1]) {g2.drawImage(ultimate, ultX2, ultY2, gp.TileSize, gp.TileSize, null); System.out.println("drawing");}
+        if(Ultimate.player2Info[1]) {g2.drawImage(ultimate, ultX2, ultY2, gp.TileSize, gp.TileSize, null);}
     }
 
     public BufferedImage getImage(String filePath) {

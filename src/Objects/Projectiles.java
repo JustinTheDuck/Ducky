@@ -36,19 +36,23 @@ public class Projectiles extends Entity {
         Images();
     }
 
+    public void reset() {
+        attacks.clear();
+    }
+
     public Rectangle getData(String type) {
         Rectangle r = new Rectangle();
         switch(type) {
             case "fireball":
-                r.setSize(gp.TileSize, gp.TileSize); name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 20; g = 0; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 200; g = 0; hitOnce = true; break;
             case "slash":
-                r.setSize(gp.TileSize, gp.TileSize); name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 10; g = 0; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 100; g = 0; hitOnce = true; break;
             case "rice_bag":
                 r.setSize(gp.TileSize, gp.TileSize); name = "rice_bag"; xSpeed = 10; ySpeedo = 0; maxLife = 60; life = maxLife; g = -0.5; hitOnce = true; break;
             case "fart":
-                r.setSize(3 * gp.TileSize,3 * gp.TileSize); name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; hitOnce = false; damage = 1; break;
+                r.setSize(3 * gp.TileSize,3 * gp.TileSize); name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; hitOnce = false; damage = 10; break;
             case "meatball":
-                r.setSize(gp.TileSize, gp.TileSize); name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 10; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 100; hitOnce = true; break;
         }
         return r;
     }
@@ -114,7 +118,7 @@ public class Projectiles extends Entity {
                 }
                 attacks.set(i+4, (double)attacks.get(i + 4) + (double)attacks.get(i + 10));
                 attacks.set(i+2, (int)attacks.get(i + 2) - (int) Math.round((double)attacks.get(i + 4)));
-                if(attacks.get(i) == "rice_bag") {attacks.set(i+7, - 10 * ((int) Math.round((double) attacks.get(i + 4))));}
+                if(attacks.get(i) == "rice_bag") {attacks.set(i+7, -15 * ((int) Math.round((double) attacks.get(i + 4))));}
 
                 //Update life of projectile
                 attacks.set(i+8, (int)attacks.get(i+8) - 1);

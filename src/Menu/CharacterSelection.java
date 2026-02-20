@@ -56,6 +56,16 @@ public class CharacterSelection {
         getImages();
     }
 
+    public void reset() {
+        currentPlayerSelection = 0;
+        player1Selected = false;
+        player2Selected = false;
+        xLocation1 = 0;
+        xLocation2 = -67;
+        yLocation1 = 0;
+        yLocation2 = -67;
+    }
+
     private void getImages() {
         characterNames[0][0] = "Duck";
         tempImage = getImage(characterNames[0][0] + "/character_images/" + characterNames[0][0] + "_RightWalk1");

@@ -33,13 +33,13 @@ public class RiceUltimate {
 
     public void update(){
         ultimateDecrement++;
-        if(Ultimate.playerInfo[1] && ultimateDecrement >= 2) {
+        if(Ultimate.playerInfo[1] && ultimateDecrement >= 2 && gp.player.Character.equals("Rice")) {
             gp.player.ultimateProgress--; ultimateDecrement = 0;
             if(gp.player.ultimateProgress == 0) {gp.player.ultimateCounting = true; Ultimate.playerInfo[1] = false;}
             if(keyH.spclPressed && !gp.player.alive) {gp.projectiles.getCharacter("Rice", gp.player.x, gp.player.y, gp.player.direction, "player");}
         }
         ultimateDecrement2++;
-        if(Ultimate.player2Info[1] && ultimateDecrement2 >= 2) {
+        if(Ultimate.player2Info[1] && ultimateDecrement2 >= 2 && gp.player2.Character.equals("Rice")) {
             gp.player2.ultimateProgress--; ultimateDecrement2 = 0;
             if(gp.player2.ultimateProgress == 0) {gp.player2.ultimateCounting = true; Ultimate.player2Info[1] = false;}
             if(keyH.spclPressed2 && !gp.player2.alive) {gp.projectiles.getCharacter("Rice", gp.player2.x, gp.player2.y, gp.player2.direction, "player2");}

@@ -8,7 +8,7 @@ import java.util.Objects;
 public class CharacterLoader {
     //Default values
     static int xSpeed = 10;
-    static int maxHealth = 1000;
+    static int maxHealth = 10000;
     static int ultimateDELAY = 50;
     static int basicCOOLDOWN = -1;
     static BufferedImage[] characterImages = new BufferedImage[12];

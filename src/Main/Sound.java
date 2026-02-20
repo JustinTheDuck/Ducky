@@ -19,6 +19,7 @@ public class Sound {
     public Sound() {
         musicURL[0] = getSound("music/DuckSong");
         musicURL[1] = getSound("music/ChickenDanceSong");
+        musicURL[2] = getSound("music/GigaChad`");
 
         sfxURL[0] = getSound("sfx/fireball_launch");
         sfxURL[1] = getSound("sfx/bag_throw");

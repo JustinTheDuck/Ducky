@@ -39,7 +39,14 @@ public class KeyHandler implements KeyListener {
             else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.baseState) {gp.gameState = gp.playState;}
             else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.controlState) {gp.ui.currentPauseState = gp.ui.baseState;}
             else if(gp.gameState == gp.pauseState && gp.ui.currentPauseState == gp.ui.settingsState) {gp.ui.currentPauseState = gp.ui.baseState;}
-            else if(gp.gameState == gp.lossState) {gameClosePressed = true;}
+            else if(gp.gameState == gp.lossState) {
+                gp.gameState = gp.titleState;
+                gp.player.setDefaultValues();
+                gp.player2.setDefaultValues();
+                gp.projectiles.reset();
+                gp.matchTimer.reset();
+                gp.title.characterSelection.reset();
+            }
         }
         if(code == KeyEvent.VK_ENTER) {confirm = true;}
 

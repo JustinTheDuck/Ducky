@@ -59,8 +59,8 @@ public class GuyUltimate {
     }
 
     public void ultimateAttack(String player) {
-        if (player.equals("player")) {Ultimate.playerInfo[1] = true; ultimateDecrement = 0; gp.player.ultimateCounting = false;}
-        if (player.equals("player2")) {Ultimate.player2Info[1] = true; ultimateDecrement2 = 0; gp.player2.ultimateCounting = false;}
+        if (player.equals("player") && gp.player.Character.equals("Guy")) {Ultimate.playerInfo[1] = true; ultimateDecrement = 0; gp.player.ultimateCounting = false;}
+        if (player.equals("player2") && gp.player2.Character.equals("Guy")) {Ultimate.player2Info[1] = true; ultimateDecrement2 = 0; gp.player2.ultimateCounting = false;}
     }
 
     public void update() {
@@ -69,13 +69,13 @@ public class GuyUltimate {
 
         if(gp.player.Character.equals("Guy")) {gp.player.alive = true;}
         if(gp.player2.Character.equals("Guy")) {gp.player2.alive = true;}
-        if (Ultimate.playerInfo[1]) {
+        if (Ultimate.playerInfo[1] && gp.player.Character.equals("Guy")) {
             ultimateDecrement++;
             if (ultimateDecrement >= ultimateDecrementCondition) {
                 meatball++; ultimateDecrement = 0; gp.player.ultimateProgress--;
                 if (meatball >= meatballSpawnCondition) {gp.projectiles.getCharacter("Guy", gp.player.x, gp.player.y, "right", "player"); meatball = 0;}
                 if (gp.player.ultimateProgress <= 0) {gp.player.ultimateCounting = true; Ultimate.playerInfo[1] = false;}}}
-        if (Ultimate.player2Info[1]) {
+        if (Ultimate.player2Info[1] && gp.player2.Character.equals("Guy")) {
             ultimateDecrement2++;
             if (ultimateDecrement2 >= ultimateDecrementCondition) {
                 meatball2++; ultimateDecrement2 = 0; gp.player2.ultimateProgress--;

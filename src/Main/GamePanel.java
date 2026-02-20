@@ -27,6 +27,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int ScreenWidth = maxScreenCol * TileSize;
     public final int ScreenHeight = maxScreenRow * TileSize;
 
+    public boolean cinematicMode = false;
+
     //For Full Screen
     public int ScreenWidth2 = ScreenWidth;
     public int ScreenHeight2 = ScreenHeight;
@@ -84,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         ui.heightFactor = (double) ScreenHeight2 /ScreenHeight;
 
         sound.playMusic();
-        //setFullScreen();
+        setFullScreen();
     }
 
     public void setFullScreen() {
@@ -159,19 +161,21 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileM.draw((Graphics2D) g2);
 
-            healthBar.draw((Graphics2D) g2);
-            ultimateBar.draw((Graphics2D) g2);
-            specialAttackBar.draw((Graphics2D) g2);
-            matchTimer.draw((Graphics2D) g2);
+            if(!cinematicMode) {
+                healthBar.draw((Graphics2D) g2);
+                ultimateBar.draw((Graphics2D) g2);
+                specialAttackBar.draw((Graphics2D) g2);
+                matchTimer.draw((Graphics2D) g2);
 
-            player.draw((Graphics2D) g2);
-            ultimate.drawP1((Graphics2D) g2);
-            player2.draw((Graphics2D) g2);
-            ultimate.drawP2((Graphics2D) g2);
+                player.draw((Graphics2D) g2);
+                ultimate.drawP1((Graphics2D) g2);
+                player2.draw((Graphics2D) g2);
+                ultimate.drawP2((Graphics2D) g2);
 
-            projectiles.draw((Graphics2D) g2);
+                projectiles.draw((Graphics2D) g2);
 
-            if(ui.settings.hitboxes) {ui.hitboxes.drawHitboxes((Graphics2D) g2);}
+                if (ui.settings.hitboxes) {ui.hitboxes.drawHitboxes((Graphics2D) g2);}
+            }
 
             ui.draw((Graphics2D) g2);
             if(title.characterSelection.starting && gameState == playState)  {title.characterSelection.draw((Graphics2D) g2);}
