@@ -1,5 +1,6 @@
 package Ultimate;
 
+import Constants.Damage;
 import Entities.CharacterLoader;
 import Main.GamePanel;
 import Main.KeyHandler;
@@ -31,7 +32,7 @@ public class GuyUltimate {
     int x, y, x2, y2;
     int[] methHitbox = new int[4];
     int[] methHitbox2 = new int[4];
-    public int methDAMAGE = 2;
+    public int methDAMAGE = Damage.spikeDamage;
     Rectangle MethHitbox = new Rectangle(0, 0, 48, 48);
     
     //Basic Data

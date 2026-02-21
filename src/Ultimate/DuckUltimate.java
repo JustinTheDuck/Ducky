@@ -1,5 +1,6 @@
 package Ultimate;
 
+import Constants.Damage;
 import Main.GamePanel;
 import Main.KeyHandler;
 
@@ -25,7 +26,7 @@ public class DuckUltimate {
     int xOffset, xOffset2;
     int[] basicHitbox2 = new int[4];
     public BufferedImage basicLeft, basicRight;
-    final int DAMAGE = 20;
+    final int DAMAGE = Damage.duckPunchDamage;
 
     //Ultimate Information for player 1 and 2 if(applicable)
     public BufferedImage ultimate_1, ultimate_2, ultimate_3, ultimate_4, ultimate;
@@ -53,6 +54,7 @@ public class DuckUltimate {
         int distance = (int) sqrt(pow(gp.player.x - gp.player2.x, 2) + pow(gp.player.y - gp.player2.y, 2));
         if(player.equals("player")) {damage = (100 - distance) * abs(maxYSpeed)/10;}
         if(player.equals("player2")) {damage = (100 - distance) * abs(maxYSpeed2)/10;}
+        damage *= Damage.smashMultiplier;
         if(damage <= 0)  {damage = 0;}
         return damage;
     }

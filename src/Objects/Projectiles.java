@@ -1,5 +1,6 @@
 package Objects;
 
+import Constants.Damage;
 import Entities.Entity;
 import Main.GamePanel;
 
@@ -44,15 +45,15 @@ public class Projectiles extends Entity {
         Rectangle r = new Rectangle();
         switch(type) {
             case "fireball":
-                r.setSize(gp.TileSize, gp.TileSize); name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = 200; g = 0; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "fireball"; xSpeed = 10; ySpeedo = 0; maxLife = 80; life = maxLife; damage = Damage.fireballDamage; g = 0; hitOnce = true; break;
             case "slash":
-                r.setSize(gp.TileSize, gp.TileSize); name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = 100; g = 0; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "slash"; xSpeed = 15; ySpeedo = 0; maxLife = 30; life = maxLife; damage = Damage.slashDamage; g = 0; hitOnce = true; break;
             case "rice_bag":
                 r.setSize(gp.TileSize, gp.TileSize); name = "rice_bag"; xSpeed = 10; ySpeedo = 0; maxLife = 60; life = maxLife; g = -0.5; hitOnce = true; break;
             case "fart":
-                r.setSize(3 * gp.TileSize,3 * gp.TileSize); name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; hitOnce = false; damage = 10; break;
+                r.setSize(3 * gp.TileSize,3 * gp.TileSize); name = "fart"; xSpeed = 5; ySpeedo = 0; maxLife = 100; life = maxLife; g = 0; hitOnce = false; damage = Damage.fartDamage; break;
             case "meatball":
-                r.setSize(gp.TileSize, gp.TileSize); name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = 100; hitOnce = true; break;
+                r.setSize(gp.TileSize, gp.TileSize); name = "meatball"; xSpeed = 0; ySpeedo = -5; maxLife = 100; life = maxLife; g = 0; damage = Damage.meatballDamage; hitOnce = true; break;
         }
         return r;
     }
@@ -118,7 +119,7 @@ public class Projectiles extends Entity {
                 }
                 attacks.set(i+4, (double)attacks.get(i + 4) + (double)attacks.get(i + 10));
                 attacks.set(i+2, (int)attacks.get(i + 2) - (int) Math.round((double)attacks.get(i + 4)));
-                if(attacks.get(i) == "rice_bag") {attacks.set(i+7, -15 * ((int) Math.round((double) attacks.get(i + 4))));}
+                if(attacks.get(i) == "rice_bag") {attacks.set(i+7, - Damage.riceBagDamageMultiplier * ((int) Math.round((double) attacks.get(i + 4))));}
 
                 //Update life of projectile
                 attacks.set(i+8, (int)attacks.get(i+8) - 1);

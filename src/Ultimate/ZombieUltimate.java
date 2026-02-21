@@ -1,5 +1,6 @@
 package Ultimate;
 
+import Constants.Damage;
 import Main.GamePanel;
 import Main.KeyHandler;
 import Objects.Projectiles;
@@ -8,7 +9,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 
 import static java.lang.Math.pow;
@@ -35,7 +35,6 @@ public class ZombieUltimate {
     Rectangle FartHitbox = new Rectangle(0, 0, 3 * 48, 3 * 48);
     int[] fartHitbox = new int[4];
     int[] fartHitbox2 = new int[4];
-    final int DAMAGE = 5;
 
     //Ultimate
     int bottomRow, leftColumn, rightColumn;
@@ -99,7 +98,7 @@ public class ZombieUltimate {
         //Player 2 Punch
         if(Ultimate.player2Info[0] && gp.player2.Character.equals("Zombie")) {
             basicCounter2++;
-            if(!basicHit2 && Ultimate.playerHitbox[1] >= basicHitbox2[0] && Ultimate.playerHitbox[0] <= basicHitbox2[1] && Ultimate.playerHitbox[3] >= basicHitbox2[2] && Ultimate.playerHitbox[2] <= basicHitbox2[3]) {gp.player.health -= 50; basicHit2 = true; gp.player2.basicCOUNTER = 0;}
+            if(!basicHit2 && Ultimate.playerHitbox[1] >= basicHitbox2[0] && Ultimate.playerHitbox[0] <= basicHitbox2[1] && Ultimate.playerHitbox[3] >= basicHitbox2[2] && Ultimate.playerHitbox[2] <= basicHitbox2[3]) {gp.player.health -= Damage.zombiePunchDamage; basicHit2 = true; gp.player2.basicCOUNTER = 0;}
             //When to kill Punch
             if (life <= basicCounter2) {gp.player2.basicCOUNTER = 0; Ultimate.player2Info[0] = false; basicCounter2 = 0; basicHit2 = false;}
         }
@@ -107,7 +106,7 @@ public class ZombieUltimate {
         if(Ultimate.player2Info[1] && gp.player2.Character.equals("Zombie")) {
             ultY2 += ySpeed;
             tileNum1 = gp.tileM.mapTileNum[leftColumn2][bottomRow2]; tileNum2 = gp.tileM.mapTileNum[rightColumn2][bottomRow2];
-            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.player2Info[1] = false; calculateDamage("player2"); PoisonDAMAGE2++;}
+            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.player2Info[1] = false; calculateDamage("player2"); PoisonDAMAGE2+= Damage.poisonDamage;}
         }
         gp.player2.health -= PoisonDAMAGE;
     }
@@ -117,14 +116,14 @@ public class ZombieUltimate {
         //Player 1 Punch
         if(Ultimate.playerInfo[0]) {
             basicCounter++;
-            if(!basicHit && Ultimate.player2Hitbox[1] >= basicHitbox[0] && Ultimate.player2Hitbox[0] <= basicHitbox[1] && Ultimate.player2Hitbox[3] >= basicHitbox[2] && Ultimate.player2Hitbox[2] <= basicHitbox[3]) {gp.player2.health -= 50; basicHit = true; gp.player.basicCOUNTER = 0;}
+            if(!basicHit && Ultimate.player2Hitbox[1] >= basicHitbox[0] && Ultimate.player2Hitbox[0] <= basicHitbox[1] && Ultimate.player2Hitbox[3] >= basicHitbox[2] && Ultimate.player2Hitbox[2] <= basicHitbox[3]) {gp.player2.health -= Damage.zombiePunchDamage; basicHit = true; gp.player.basicCOUNTER = 0;}
             //When to kill Punch
             if (life <= basicCounter) {gp.player.basicCOUNTER = 0; Ultimate.playerInfo[0] = false; basicCounter = 0; basicHit = false;}
         }
         if(Ultimate.playerInfo[1]) {
             ultY += ySpeed;
             tileNum1 = gp.tileM.mapTileNum[leftColumn][bottomRow]; tileNum2 = gp.tileM.mapTileNum[rightColumn][bottomRow];
-            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.playerInfo[1] = false; calculateDamage("player"); PoisonDAMAGE++;}
+            if(gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {Ultimate.playerInfo[1] = false; calculateDamage("player"); PoisonDAMAGE += Damage.poisonDamage;}
         }
         gp.player.health -= PoisonDAMAGE2;
     }
