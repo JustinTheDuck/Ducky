@@ -23,8 +23,8 @@ public class Player2 extends Entity {
         Character = "Zombie";
         user = "player2";
         y = 100;
-        x = 200;
-        direction = "right";
+        x = gp.ScreenWidth - 150;
+        direction = "left";
         upDown = "null";
         touchingX = false;
         touchingY = false;
@@ -33,6 +33,9 @@ public class Player2 extends Entity {
         solidArea.y = 0;
         solidArea.width = 32;
         solidArea.height = 32;
+        alive = false;
+        ultimateProgress = 0;
+        spriteNum = 1;
     }
 
     public void startGame() {

@@ -1,5 +1,7 @@
 package Entities;
 
+import Constants.CharacterAttributes;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -41,8 +43,17 @@ public class CharacterLoader {
 
     public static int getCharacterMaxHealth(String Character) {
         switch(Character){
-            case "Duck", "Rice", "Zombie", "Guy":
-                maxHealth = 1000;
+            case "Duck":
+                maxHealth = CharacterAttributes.duckHealth;
+                break;
+            case "Rice":
+                maxHealth = CharacterAttributes.riceHealth;
+                break;
+            case "Zombie":
+                maxHealth = CharacterAttributes.zombieHealth;
+                break;
+            case "Guy":
+                maxHealth = CharacterAttributes.guyHealth;
                 break;
         }
         return maxHealth;

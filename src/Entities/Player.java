@@ -30,13 +30,16 @@ public class Player extends Entity{
         //Get default starting values for character
         Character = "Rice";
         user = "player";
-        x = 100;
+        x = 150;
         y = 100;
         direction = "right";
         upDown = "null";
         touchingX = false;
         touchingY = false;
         ultimateCounting = true;
+        alive = false;
+        ultimateProgress = 0;
+        spriteNum = 1;
     }
 
     public void startGame() {
