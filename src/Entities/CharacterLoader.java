@@ -41,7 +41,7 @@ public class CharacterLoader {
 
     public static int getCharacterMaxHealth(String Character) {
         switch(Character){
-            case "Duck", "Rice", "Zombie":
+            case "Duck", "Rice", "Zombie", "Guy":
                 maxHealth = 1000;
                 break;
         }

@@ -57,13 +57,15 @@ public class CharacterSelection {
     }
 
     public void reset() {
-        currentPlayerSelection = 0;
+        currentPlayerSelection = 1;
         player1Selected = false;
         player2Selected = false;
         xLocation1 = 0;
         xLocation2 = -67;
         yLocation1 = 0;
         yLocation2 = -67;
+        player1Image = null;
+        player2Image = null;
     }
 
     private void getImages() {
